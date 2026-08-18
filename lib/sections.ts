@@ -83,6 +83,20 @@ const skillsCard: Card = {
  * hidden behind the status bar.
  */
 export const homeTiles: Tile[] = [
+  {
+    kind: "system",
+    id: "system-store",
+    title: "Store",
+    tagline: "Nothing for sale here",
+    mark: "store",
+  },
+  {
+    kind: "system",
+    id: "system-shapes",
+    title: "Shapes",
+    tagline: "Purely decorative, like the console it borrows from",
+    mark: "shapes",
+  },
   { kind: "card", card: aboutCard },
   {
     kind: "folder",
@@ -123,8 +137,13 @@ export const homeTiles: Tile[] = [
 ];
 
 /** Flat lookup for anything that can be expanded. */
-export const allCards: Card[] = homeTiles.flatMap((tile) =>
-  tile.kind === "card" ? [tile.card] : tile.cards,
-);
+export const allCards: Card[] = homeTiles.flatMap((tile) => {
+  if (tile.kind === "card") return [tile.card];
+  if (tile.kind === "folder") return tile.cards;
+  return [];
+});
+
+/** The first tile worth landing on, past the decorative ones. */
+export const initialFocusIndex = homeTiles.findIndex((tile) => tile.kind !== "system");
 
 export { allProjects };

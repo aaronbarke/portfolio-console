@@ -9,7 +9,7 @@ import {
   useReducer,
   type ReactNode,
 } from "react";
-import { homeTiles } from "@/lib/sections";
+import { homeTiles, initialFocusIndex } from "@/lib/sections";
 import type { Tile } from "@/lib/types";
 
 interface HomeState {
@@ -36,7 +36,7 @@ type HomeAction =
   | { type: "selectFolderItem"; index: number };
 
 const initialState: HomeState = {
-  focusIndex: 0,
+  focusIndex: initialFocusIndex,
   expandedId: null,
   openFolderId: null,
   folderFocusIndex: 0,
@@ -55,6 +55,11 @@ function tileAt(index: number): Tile | undefined {
 function activate(state: HomeState, index: number): HomeState {
   const tile = tileAt(index);
   if (!tile) return state;
+
+  // System tiles take focus and grow like the rest, but open nothing.
+  if (tile.kind === "system") {
+    return { ...state, focusIndex: index, expandedId: null, openFolderId: null, folderSelectedId: null };
+  }
 
   if (tile.kind === "folder") {
     const alreadyOpen = state.openFolderId === tile.id;
@@ -146,6 +151,8 @@ function reducer(state: HomeState, action: HomeAction): HomeState {
 
 interface HomeContextValue extends HomeState {
   tiles: Tile[];
+  /** The tile the row is currently on, so hints can reflect what it does. */
+  focusedTile: Tile | undefined;
   dispatch: (action: HomeAction) => void;
   /** True when nothing is expanded, open or overlaid. */
   isIdle: boolean;
@@ -160,6 +167,7 @@ export function HomeProvider({ children }: { children: ReactNode }) {
     () => ({
       ...state,
       tiles: homeTiles,
+      focusedTile: homeTiles[state.focusIndex],
       dispatch,
       isIdle: !state.expandedId && !state.openFolderId,
     }),

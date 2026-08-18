@@ -59,6 +59,7 @@ Every section is a tile; nothing is hidden behind the status bar.
 
 | Tile | Contents |
 | --- | --- |
+| Store, Shapes | Decorative system tiles. They focus and grow like the rest, but open nothing |
 | About | Bio, location, email, resume download |
 | Favorites | The games that matter, as a folder |
 | Projects | All eleven builds, strongest first |
@@ -69,6 +70,9 @@ Every section is a tile; nothing is hidden behind the status bar.
 
 The status bar holds identity and follow links only: Instagram, LinkedIn,
 GitHub, email and the resume download.
+
+The row opens focused on About rather than on the first tile, since the two
+system tiles ahead of it lead nowhere.
 
 ## Interaction model
 

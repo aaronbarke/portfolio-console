@@ -7,9 +7,16 @@ import { useHome } from "./HomeProvider";
  * current state, so the hint is always the action that will actually happen.
  */
 export function ControllerHints() {
-  const { isIdle, openFolderId, expandedId } = useHome();
+  const { isIdle, openFolderId, expandedId, focusedTile } = useHome();
 
-  const openLabel = openFolderId ? "Open item" : expandedId ? "Collapse" : "Open";
+  // A system tile opens nothing, so promising "Open" would be a lie.
+  const openLabel = openFolderId
+    ? "Open item"
+    : expandedId
+      ? "Collapse"
+      : focusedTile?.kind === "system"
+        ? null
+        : "Open";
   const backLabel = openFolderId || expandedId ? "Back" : null;
 
   return (

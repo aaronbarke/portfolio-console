@@ -134,7 +134,13 @@ export interface Card {
   body: CardBody;
 }
 
-/** A home-row entry is either a single card or a folder of them. */
+/**
+ * A home-row entry. System tiles are the flat ones that anchor the left edge:
+ * they take focus and grow like the rest, but activating them does nothing.
+ */
 export type Tile =
   | { kind: "card"; card: Card }
-  | { kind: "folder"; id: string; title: string; tagline: string; cards: Card[] };
+  | { kind: "folder"; id: string; title: string; tagline: string; cards: Card[] }
+  | { kind: "system"; id: string; title: string; tagline: string; mark: SystemMark };
+
+export type SystemMark = "store" | "shapes";

@@ -8,7 +8,6 @@ import { FolderGrid } from "./FolderTile";
 import { useHome } from "./HomeProvider";
 import { allCards } from "@/lib/sections";
 import { useTileSize } from "./useTileSize";
-import { FillerTile } from "./FillerTile";
 
 export function TileRow() {
   const {
@@ -74,9 +73,10 @@ export function TileRow() {
       ? tiles.find((tile) => tile.kind === "folder" && tile.id === openFolderId)
       : undefined;
 
-  const headingTitle = focusedTile?.kind === "folder" ? focusedTile.title : focusedTile?.card.title;
+  const headingTitle =
+    focusedTile?.kind === "card" ? focusedTile.card.title : focusedTile?.title;
   const headingBlurb =
-    focusedTile?.kind === "folder" ? focusedTile.tagline : focusedTile?.card.tagline;
+    focusedTile?.kind === "card" ? focusedTile.card.tagline : focusedTile?.tagline;
 
   return (
     <section ref={sectionRef} aria-label="Sections" className="w-full scroll-mt-6">
@@ -85,11 +85,8 @@ export function TileRow() {
         aria-label="Sections"
         className="scrollbar-none flex items-start gap-2 overflow-x-auto px-4 pb-1 pt-5 sm:gap-2.5 sm:px-6 sm:pt-6 lg:px-10"
       >
-        <FillerTile kind="store" size={tileSize.resting} />
-        <FillerTile kind="shapes" size={tileSize.resting} />
-
         {tiles.map((tile, index) => {
-          const id = tile.kind === "folder" ? tile.id : tile.card.id;
+          const id = tile.kind === "card" ? tile.card.id : tile.id;
           const focused = index === focusIndex;
           return (
             <Fragment key={id}>

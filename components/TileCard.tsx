@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { forwardRef } from "react";
 import { TileArt } from "./TileArt";
 import { ChevronIcon, FolderIcon } from "./Icons";
+import { SystemArt } from "./FillerTile";
 import type { Tile } from "@/lib/types";
 
 interface TileCardProps {
@@ -53,8 +54,9 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
   { tile, focused, open, size, onFocus, onHover, onActivate },
   ref,
 ) {
-  const title = tile.kind === "folder" ? tile.title : tile.card.title;
-  const description = tile.kind === "folder" ? tile.tagline : tile.card.tagline;
+  const title = tile.kind === "card" ? tile.card.title : tile.title;
+  const description = tile.kind === "card" ? tile.card.tagline : tile.tagline;
+  const isSystem = tile.kind === "system";
 
   const art = focused ? size.focused : size.resting;
   const bar = Math.round(size.focused * ARROW_BAR_RATIO);
@@ -63,7 +65,8 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
     <motion.button
       ref={ref}
       type="button"
-      aria-expanded={open}
+      aria-expanded={isSystem ? undefined : open}
+      aria-disabled={isSystem || undefined}
       aria-label={`${title}. ${description}`}
       tabIndex={focused ? 0 : -1}
       onFocus={onFocus}
@@ -72,7 +75,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       // Without this the first paint has no width, so the intrinsic size of the
       // art (~600px) is what the spring animates down from, which flashes.
       initial={false}
-      animate={{ width: art, height: focused ? art + bar : art }}
+      animate={{ width: art, height: focused && !isSystem ? art + bar : art }}
       transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
       className={[
         "relative flex shrink-0 flex-col self-start overflow-hidden rounded-[4px] ring-1 ring-white/12",
@@ -87,7 +90,9 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
         transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
         className="relative block w-full shrink-0 overflow-hidden"
       >
-        {tile.kind === "folder" ? (
+        {tile.kind === "system" ? (
+          <SystemArt mark={tile.mark} />
+        ) : tile.kind === "folder" ? (
           <FolderArt tile={tile} />
         ) : (
           <TileArt
@@ -121,7 +126,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       </motion.span>
 
       {/* The strip that says "this opens downward". */}
-      {focused && (
+      {focused && !isSystem && (
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
