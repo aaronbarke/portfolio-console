@@ -62,7 +62,14 @@ export function ReferenceOverlay() {
         setIndex((value) => value + 1);
         break;
       case "b":
-        setBlend((value) => (value + 1) % BLEND_MODES.length);
+        setBlend((value) => {
+          const next = (value + 1) % BLEND_MODES.length;
+          // Difference is unreadable at low opacity: the whole point is that
+          // matching pixels cancel to black, which only happens at full
+          // strength. Restore a see-through default on the way back.
+          setOpacity(BLEND_MODES[next] === "difference" ? 1 : 0.5);
+          return next;
+        });
         break;
       default:
         break;
@@ -81,15 +88,16 @@ export function ReferenceOverlay() {
   return (
     <>
       {visible && (
-        <div className="pointer-events-none fixed inset-0 z-[100]">
+        <div
+          // The blend mode has to live on the positioned element itself. On a
+          // child it blends only within this stacking context, which has no
+          // backdrop, so difference mode appeared to do nothing.
+          style={{ mixBlendMode: BLEND_MODES[blend], opacity }}
+          className="pointer-events-none fixed inset-0 z-[100]"
+        >
           {source ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={source}
-              alt=""
-              style={{ opacity, mixBlendMode: BLEND_MODES[blend] }}
-              className="h-full w-full object-cover"
-            />
+            <img src={source} alt="" className="h-full w-full object-cover" />
           ) : (
             <div className="absolute inset-x-0 top-1/3 mx-auto max-w-md rounded-lg bg-black/80 p-5 text-center text-sm text-white">
               <p className="font-semibold">Nothing in public/reference/</p>

@@ -131,7 +131,8 @@ breaking, so you can add them one at a time.
 | `b` | Toggle difference blend |
 
 Difference blend is the one worth knowing: matching pixels go black, so whatever
-is still glowing is out of position.
+is still glowing is out of position. It switches to full opacity on its own,
+because the effect does not read through a 50% overlay.
 
 ## Deploying
 

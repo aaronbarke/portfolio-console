@@ -19,4 +19,5 @@ Controls, with the site focused:
 | `b` | Toggle difference blend, which makes misalignment obvious |
 
 Difference blend is the useful one: matching areas go black, so anything still
-glowing is out of position.
+glowing is out of position. Toggling it jumps opacity to 100% automatically,
+since the effect only reads at full strength, and back to 50% on the way out.
