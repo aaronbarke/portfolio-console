@@ -128,3 +128,25 @@ export const ChevronIcon = (p: IconProps) => (
     <path d="M9 6l6 6-6 6" />
   </Glyph>
 );
+
+export const InstagramIcon = (p: IconProps) => (
+  <Glyph {...p}>
+    <rect x="4.5" y="4.5" width="15" height="15" rx="4.5" />
+    <circle cx="12" cy="12" r="3.6" />
+    <circle cx="16.6" cy="7.4" r="0.9" fill="currentColor" stroke="none" />
+  </Glyph>
+);
+
+export const LinkedInIcon = (p: IconProps) => (
+  <Glyph {...p}>
+    <rect x="4.5" y="4.5" width="15" height="15" rx="2.5" />
+    <path d="M8.4 10.6v5.2M8.4 8.3v.1" />
+    <path d="M11.8 15.8v-5.2M11.8 12.4a1.9 1.9 0 0 1 3.8 0v3.4" />
+  </Glyph>
+);
+
+export const GithubIcon = (p: IconProps) => (
+  <Glyph {...p}>
+    <path d="M9.4 19.2v-2.3c-2.6.5-3.3-1.2-3.3-1.2-.4-1-1.1-1.3-1.1-1.3-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.1-.2-4.3-1-4.3-4.6 0-1 .4-1.9 1-2.5-.1-.3-.4-1.2.1-2.5 0 0 .8-.3 2.6 1a8.8 8.8 0 0 1 4.7 0c1.8-1.3 2.6-1 2.6-1 .5 1.3.2 2.2.1 2.5.6.6 1 1.5 1 2.5 0 3.6-2.2 4.4-4.3 4.6.3.3.6.9.6 1.8v2.7" />
+  </Glyph>
+);

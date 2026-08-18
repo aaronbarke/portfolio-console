@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { HomeProvider, useConsoleKeyboard } from "./HomeProvider";
 import { TopBar } from "./TopBar";
 import { TileRow } from "./TileRow";
-import { SystemPanel } from "./SystemPanel";
 import { ControllerHints } from "./ControllerHints";
 
 function Screen() {
@@ -30,7 +29,6 @@ function Screen() {
       </main>
 
       <ControllerHints />
-      <SystemPanel />
     </motion.div>
   );
 }

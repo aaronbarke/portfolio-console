@@ -84,6 +84,87 @@ function Motif({ motif }: { motif: ArtMotif }) {
           ))}
         </g>
       );
+    case "blocks":
+      return (
+        <g>
+          {[
+            [20, 120], [64, 120], [108, 120], [152, 120],
+            [42, 76], [86, 76], [130, 76],
+            [64, 32], [108, 32],
+          ].map(([x, y], i) => (
+            <rect
+              key={i}
+              x={x}
+              y={y}
+              width="40"
+              height="40"
+              rx="2"
+              fill={fill}
+              stroke={stroke}
+              strokeWidth="1"
+            />
+          ))}
+        </g>
+      );
+    case "court":
+      return (
+        <g stroke={stroke} strokeWidth="1.4" fill="none">
+          <rect x="16" y="16" width="168" height="168" rx="3" />
+          <line x1="16" y1="100" x2="184" y2="100" />
+          <circle cx="100" cy="100" r="30" />
+          <path d="M16 54 h44 a40 40 0 0 1 0 92 H16" />
+          <path d="M184 54 h-44 a40 40 0 0 0 0 92 H184" />
+        </g>
+      );
+    case "boost":
+      return (
+        <g>
+          <circle cx="100" cy="112" r="46" fill="none" stroke={stroke} strokeWidth="1.6" />
+          <circle cx="100" cy="112" r="18" fill={fill} />
+          <path
+            d="M28 168 C 70 140, 130 88, 176 34"
+            fill="none"
+            stroke={stroke}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M44 182 C 84 156, 140 106, 184 56"
+            fill="none"
+            stroke={stroke}
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            opacity="0.6"
+          />
+        </g>
+      );
+    case "storm":
+      return (
+        <g fill="none" stroke={stroke}>
+          <circle cx="100" cy="100" r="78" strokeWidth="1.2" />
+          <circle cx="100" cy="100" r="54" strokeWidth="1.2" opacity="0.75" />
+          <circle cx="100" cy="100" r="30" strokeWidth="1.2" opacity="0.5" />
+          <path d="M108 44 L78 106 h26 l-12 50 44 -68 h-28 Z" fill={fill} stroke="none" />
+        </g>
+      );
+    case "page":
+      return (
+        <g stroke={stroke} strokeWidth="1.3" fill="none">
+          <rect x="44" y="24" width="112" height="152" rx="3" fill={fill} />
+          {[54, 74, 94, 114, 134].map((y) => (
+            <line key={y} x1="62" y1={y} x2={y === 134 ? 118 : 138} y2={y} />
+          ))}
+        </g>
+      );
+    case "cap":
+      return (
+        <g stroke={stroke} strokeWidth="1.6" fill="none">
+          <path d="M20 84 L100 48 L180 84 L100 120 Z" fill={fill} />
+          <path d="M52 100 v34 c0 12 96 12 96 0 v-34" />
+          <path d="M172 88 v40" />
+          <circle cx="172" cy="134" r="6" fill={fill} />
+        </g>
+      );
     default:
       return null;
   }
@@ -99,7 +180,7 @@ export function TileArt({ motif, from, to, monogram, className }: TileArtProps) 
             <stop offset="100%" stopColor={to} />
           </linearGradient>
           <radialGradient id={`sheen-${monogram}`} cx="0.2" cy="0.05" r="0.9">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.28)" />
+            <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </radialGradient>
         </defs>

@@ -1,36 +1,47 @@
 /** Shared content types. Every data file in /lib is typed against these. */
 
-/** Art motif rendered behind a tile's monogram. Keeps cover art code-generated. */
-export type ArtMotif = "grid" | "wave" | "orbit" | "peaks" | "scatter" | "bars";
+/** Art motif rendered behind a tile's monogram. Cover art is code-generated. */
+export type ArtMotif =
+  | "grid"
+  | "wave"
+  | "orbit"
+  | "peaks"
+  | "scatter"
+  | "bars"
+  | "blocks"
+  | "court"
+  | "boost"
+  | "storm"
+  | "page"
+  | "cap";
+
+export interface Art {
+  motif: ArtMotif;
+  from: string;
+  to: string;
+  monogram: string;
+}
 
 export interface ProjectLink {
   label: string;
   href: string;
-  /** Rendered as the primary "Start" action on the detail panel. */
+  /** Rendered as the primary action on the detail panel. */
   primary?: boolean;
 }
 
 export interface Project {
   id: string;
   title: string;
-  /** Short line under the title on the home row and detail panel. */
   tagline: string;
-  /** One paragraph, shown in the expanded detail panel. */
   summary: string;
   stack: string[];
   features: string[];
   links: ProjectLink[];
-  /** Shown as a stat strip in the detail panel. */
   metrics?: { label: string; value: string }[];
   /** Source is private; the panel says so instead of offering a dead link. */
   privateSource?: boolean;
-  art: { motif: ArtMotif; from: string; to: string; monogram: string };
+  art: Art;
 }
-
-/** A home-row entry is either a single project or a folder of them. */
-export type Tile =
-  | { kind: "project"; project: Project }
-  | { kind: "folder"; id: string; title: string; blurb: string; projects: Project[] };
 
 export type TrophyTier = "platinum" | "gold" | "silver" | "bronze";
 
@@ -49,12 +60,32 @@ export interface ExperienceEntry {
   points: string[];
 }
 
+export interface Favorite {
+  id: string;
+  name: string;
+  period: string;
+  /** Why it matters, in the first person. */
+  note: string[];
+  stats?: { label: string; value: string }[];
+  art: Art;
+}
+
+export interface Post {
+  id: string;
+  title: string;
+  outlet: string;
+  date: string;
+  summary: string;
+  body: string[];
+  href?: string;
+  art: Art;
+}
+
 export interface SocialLink {
   id: string;
   name: string;
   handle: string;
   href: string;
-  status: "online" | "away";
 }
 
 export interface Profile {
@@ -69,12 +100,29 @@ export interface Profile {
   socials: SocialLink[];
 }
 
-/** Top-bar destinations. Each maps to a real panel, none are decorative. */
-export type PanelKey =
-  | "profile"
-  | "notifications"
-  | "contact"
-  | "friends"
-  | "calendar"
-  | "trophies"
-  | "settings";
+/**
+ * Every destination on the home screen is a card. The body tag decides which
+ * renderer the detail panel uses, so adding a new kind of section means adding
+ * one variant here and one branch in the panel, not a new navigation concept.
+ */
+export type CardBody =
+  | { type: "project"; project: Project }
+  | { type: "about" }
+  | { type: "skills" }
+  | { type: "role"; entry: ExperienceEntry }
+  | { type: "education"; entry: ExperienceEntry }
+  | { type: "post"; post: Post }
+  | { type: "favorite"; favorite: Favorite };
+
+export interface Card {
+  id: string;
+  title: string;
+  tagline: string;
+  art: Art;
+  body: CardBody;
+}
+
+/** A home-row entry is either a single card or a folder of them. */
+export type Tile =
+  | { kind: "card"; card: Card }
+  | { kind: "folder"; id: string; title: string; tagline: string; cards: Card[] };

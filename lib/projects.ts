@@ -1,4 +1,4 @@
-import type { Project, Tile } from "./types";
+import type { Project } from "./types";
 
 const GH = "https://github.com/aaronbarke";
 
@@ -228,18 +228,6 @@ export const experimentProjects: Project[] = [
     privateSource: true,
     links: [],
     art: { motif: "bars", from: "#0b4f72", to: "#04131d", monogram: "PL" },
-  },
-];
-
-/** The home row, in display order. */
-export const homeTiles: Tile[] = [
-  ...featuredProjects.map((project): Tile => ({ kind: "project", project })),
-  {
-    kind: "folder",
-    id: "experiments",
-    title: "Experiments",
-    blurb: "Research labs and smaller builds",
-    projects: experimentProjects,
   },
 ];
 

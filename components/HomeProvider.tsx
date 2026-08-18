@@ -9,22 +9,20 @@ import {
   useReducer,
   type ReactNode,
 } from "react";
-import { homeTiles } from "@/lib/projects";
-import type { PanelKey, Tile } from "@/lib/types";
+import { homeTiles } from "@/lib/sections";
+import type { Tile } from "@/lib/types";
 
 interface HomeState {
   /** Index into `homeTiles` of the currently focused tile. */
   focusIndex: number;
-  /** Id of the project tile whose detail panel is expanded, if any. */
+  /** Id of the card whose detail panel is expanded, if any. */
   expandedId: string | null;
   /** Id of the folder tile that is open in place, if any. */
   openFolderId: string | null;
   /** Focus index inside the open folder's grid. */
   folderFocusIndex: number;
-  /** Project selected from inside a folder. */
+  /** Card selected from inside a folder. */
   folderSelectedId: string | null;
-  /** Top-bar destination shown as an overlay, if any. */
-  panel: PanelKey | null;
 }
 
 type HomeAction =
@@ -35,9 +33,7 @@ type HomeAction =
   | { type: "back" }
   | { type: "focusFolderItem"; index: number }
   | { type: "moveFolder"; delta: number }
-  | { type: "selectFolderItem"; index: number }
-  | { type: "openPanel"; panel: PanelKey }
-  | { type: "closePanel" };
+  | { type: "selectFolderItem"; index: number };
 
 const initialState: HomeState = {
   focusIndex: 0,
@@ -45,7 +41,6 @@ const initialState: HomeState = {
   openFolderId: null,
   folderFocusIndex: 0,
   folderSelectedId: null,
-  panel: null,
 };
 
 function clamp(value: number, max: number): number {
@@ -73,13 +68,13 @@ function activate(state: HomeState, index: number): HomeState {
     };
   }
 
-  const alreadyExpanded = state.expandedId === tile.project.id;
+  const alreadyExpanded = state.expandedId === tile.card.id;
   return {
     ...state,
     focusIndex: index,
     openFolderId: null,
     folderSelectedId: null,
-    expandedId: alreadyExpanded ? null : tile.project.id,
+    expandedId: alreadyExpanded ? null : tile.card.id,
   };
 }
 
@@ -110,7 +105,6 @@ function reducer(state: HomeState, action: HomeAction): HomeState {
       return activate(state, action.index);
 
     case "back": {
-      if (state.panel) return { ...state, panel: null };
       if (state.folderSelectedId) return { ...state, folderSelectedId: null };
       if (state.openFolderId) return { ...state, openFolderId: null, folderFocusIndex: 0 };
       if (state.expandedId) return { ...state, expandedId: null };
@@ -123,27 +117,21 @@ function reducer(state: HomeState, action: HomeAction): HomeState {
     case "moveFolder": {
       const tile = tileAt(state.focusIndex);
       if (!tile || tile.kind !== "folder") return state;
-      const next = clamp(state.folderFocusIndex + action.delta, tile.projects.length - 1);
+      const next = clamp(state.folderFocusIndex + action.delta, tile.cards.length - 1);
       return next === state.folderFocusIndex ? state : { ...state, folderFocusIndex: next };
     }
 
     case "selectFolderItem": {
       const tile = tileAt(state.focusIndex);
       if (!tile || tile.kind !== "folder") return state;
-      const project = tile.projects[action.index];
-      if (!project) return state;
+      const card = tile.cards[action.index];
+      if (!card) return state;
       return {
         ...state,
         folderFocusIndex: action.index,
-        folderSelectedId: state.folderSelectedId === project.id ? null : project.id,
+        folderSelectedId: state.folderSelectedId === card.id ? null : card.id,
       };
     }
-
-    case "openPanel":
-      return { ...state, panel: action.panel };
-
-    case "closePanel":
-      return { ...state, panel: null };
 
     default:
       return state;
@@ -167,7 +155,7 @@ export function HomeProvider({ children }: { children: ReactNode }) {
       ...state,
       tiles: homeTiles,
       dispatch,
-      isIdle: !state.panel && !state.expandedId && !state.openFolderId,
+      isIdle: !state.expandedId && !state.openFolderId,
     }),
     [state],
   );
@@ -186,7 +174,7 @@ export function useHome(): HomeContextValue {
  * level at a time. Typing in a field is never hijacked.
  */
 export function useConsoleKeyboard(): void {
-  const { dispatch, openFolderId, panel } = useHome();
+  const { dispatch, openFolderId } = useHome();
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -210,12 +198,11 @@ export function useConsoleKeyboard(): void {
           break;
         case "Enter":
           // A focused button or link handles its own Enter; don't toggle twice.
-          if (panel || target?.closest("button, a")) return;
+          if (target?.closest("button, a")) return;
           event.preventDefault();
           dispatch({ type: "activate" });
           break;
         case "ArrowDown":
-          if (panel) return;
           event.preventDefault();
           dispatch({ type: "activate" });
           break;
@@ -228,7 +215,7 @@ export function useConsoleKeyboard(): void {
           break;
       }
     },
-    [dispatch, openFolderId, panel],
+    [dispatch, openFolderId],
   );
 
   useEffect(() => {

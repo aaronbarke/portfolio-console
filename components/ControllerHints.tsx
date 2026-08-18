@@ -7,21 +7,10 @@ import { useHome } from "./HomeProvider";
  * current state, so the hint is always the action that will actually happen.
  */
 export function ControllerHints() {
-  const { isIdle, openFolderId, expandedId, panel } = useHome();
+  const { isIdle, openFolderId, expandedId } = useHome();
 
-  const openLabel = panel
-    ? null
-    : openFolderId
-      ? "Open project"
-      : expandedId
-        ? "Collapse"
-        : "Open";
-
-  const backLabel = panel
-    ? "Close"
-    : openFolderId || expandedId
-      ? "Back"
-      : null;
+  const openLabel = openFolderId ? "Open item" : expandedId ? "Collapse" : "Open";
+  const backLabel = openFolderId || expandedId ? "Back" : null;
 
   return (
     <div className="pointer-events-none flex items-center justify-end gap-5 px-1 py-4 text-xs text-ink-muted">

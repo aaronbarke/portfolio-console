@@ -7,10 +7,11 @@ const config: Config = {
       colors: {
         // Console-blue palette. Semantic names only, no raw hex in components.
         base: {
-          deep: "#05121f",
-          mid: "#0a2b4a",
-          bright: "#1176c9",
-          glow: "#4fc3ff",
+          deep: "#022c8a",
+          dark: "#122f83",
+          mid: "#1b459c",
+          bright: "#1651a8",
+          glow: "#9ed6ff",
         },
         ink: {
           DEFAULT: "#ffffff",

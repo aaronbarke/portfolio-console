@@ -8,16 +8,16 @@
 export function BackgroundWave() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(165deg,#1a6ecd_0%,#1059b0_24%,#0c478f_48%,#08356e_72%,#04244c_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(165deg,#1651a8_0%,#1b459c_28%,#122f83_58%,#022c8a_82%,#02226b_100%)]" />
 
       <div className="wave-a absolute inset-0 origin-center">
         <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
           <defs>
             <linearGradient id="arc-body" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stopColor="#7cc9ff" stopOpacity="0" />
-              <stop offset="30%" stopColor="#8fd4ff" stopOpacity="0.32" />
-              <stop offset="62%" stopColor="#c4eaff" stopOpacity="0.42" />
-              <stop offset="100%" stopColor="#c4eaff" stopOpacity="0.08" />
+              <stop offset="0%" stopColor="#8ec8ff" stopOpacity="0" />
+              <stop offset="30%" stopColor="#9ed6ff" stopOpacity="0.3" />
+              <stop offset="62%" stopColor="#cbe9ff" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#cbe9ff" stopOpacity="0.08" />
             </linearGradient>
           </defs>
           <path
@@ -52,11 +52,11 @@ export function BackgroundWave() {
         </svg>
       </div>
 
-      <div className="wave-glow absolute left-[16%] top-[32%] h-[52vh] w-[64vw] rounded-full bg-[radial-gradient(closest-side,rgba(150,220,255,0.2),rgba(150,220,255,0))] blur-[60px]" />
+      <div className="wave-glow absolute left-[16%] top-[32%] h-[52vh] w-[64vw] rounded-full bg-[radial-gradient(closest-side,rgba(158,214,255,0.18),rgba(150,220,255,0))] blur-[60px]" />
 
       {/* Keep the status bar and hint bar legible over whatever is behind them. */}
-      <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(4,26,58,0.46)_0%,rgba(4,26,58,0)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(0deg,rgba(4,24,54,0.54)_0%,rgba(4,24,54,0)_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(2,24,70,0.4)_0%,rgba(2,24,70,0)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(0deg,rgba(2,22,64,0.5)_0%,rgba(2,22,64,0)_100%)]" />
 
       <div
         className="absolute inset-0 opacity-[0.035] mix-blend-overlay"

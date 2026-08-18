@@ -17,25 +17,29 @@ export const profile: Profile = {
   resumeHref: "/resume.pdf",
   socials: [
     {
-      id: "github",
-      name: "GitHub",
+      id: "instagram",
+      name: "Instagram",
+      // TODO(content): replace with your real handle, this is a guess from your name.
       handle: "@aaronbarke",
-      href: "https://github.com/aaronbarke",
-      status: "online",
+      href: "https://instagram.com/aaronbarke",
     },
     {
       id: "linkedin",
       name: "LinkedIn",
       handle: "in/aaronbarke",
       href: "https://www.linkedin.com/in/aaronbarke",
-      status: "online",
+    },
+    {
+      id: "github",
+      name: "GitHub",
+      handle: "@aaronbarke",
+      href: "https://github.com/aaronbarke",
     },
     {
       id: "email",
       name: "Email",
       handle: "barke345@umn.edu",
       href: "mailto:barke345@umn.edu",
-      status: "online",
     },
   ],
 };

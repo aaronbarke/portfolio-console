@@ -32,24 +32,43 @@ app/
 components/
   HomeProvider.tsx     Selection/expansion state + the global keyboard model
   HomeScreen.tsx       Composition root for the screen
-  TopBar.tsx           Status bar: profile, section icons, clock
-  TileRow.tsx          The home row, caption and detail area
-  TileCard.tsx         One tile (project or folder)
-  FolderTile.tsx       A folder opened in place as a grid
-  ExpandPanel.tsx      Project detail, expanded downward
-  SystemPanel.tsx      Overlay for the top-bar destinations
+  TopBar.tsx           Status bar: identity, social links, resume, clock
+  TileRow.tsx          The home row, its inline label and the detail area
+  TileCard.tsx         One tile (card or folder)
+  FolderTile.tsx       A folder opened in place as a row
+  ExpandPanel.tsx      The detail panel shell and its action column
+  CardBodies.tsx       One renderer per card body type
   TrophyList.tsx       Skills, as a trophy list
-  ProfileCard.tsx      About
+  TileArt.tsx          Generated cover art
   BackgroundWave.tsx   Animated background
   ControllerHints.tsx  Keyboard hints, reflecting current state
-  panels/              Notifications, friends, timeline, contact, settings
 lib/
   types.ts             Content types every data file is checked against
-  projects.ts          Featured projects and the Experiments folder
+  sections.ts          Assembles the home row from everything below
+  projects.ts          Project data
+  favorites.ts         The Favorites folder
+  blog.ts              Writing
   trophies.ts          Skills by tier
-  experience.ts        Employment timeline
-  profile.ts           Name, status line, socials, notification feed
+  experience.ts        Employment, education and publications
+  profile.ts           Name, status line, socials
 ```
+
+## The home row
+
+Every section is a tile; nothing is hidden behind the status bar.
+
+| Tile | Contents |
+| --- | --- |
+| About | Bio, location, email, resume download |
+| Favorites | The games that matter, as a folder |
+| Projects | All eleven builds, strongest first |
+| Work Experience | One card per role |
+| Education | University of Minnesota |
+| Skills | Trophy list by tier |
+| Writing | Published work |
+
+The status bar holds identity and follow links only: Instagram, LinkedIn,
+GitHub, email and the resume download.
 
 ## Interaction model
 
@@ -69,15 +88,19 @@ disabled under `prefers-reduced-motion`.
 
 All content lives in `lib/` as typed data, checked against `lib/types.ts`:
 
-- `projects.ts` sets the home row and the Experiments folder. Move a project
-  between `featuredProjects` and `experimentProjects` to change which tiles are
-  on the main row.
-- `trophies.ts` is skills by tier, `experience.ts` is employment, education and
-  writing, `profile.ts` is identity, socials and the notification feed.
+- `sections.ts` builds the home row. Reorder `homeTiles` to change the tile
+  order, or move a card between folders.
+- `projects.ts` order decides project order inside the Projects folder, so the
+  first entry is the one shown first.
+- `trophies.ts` is skills by tier, `experience.ts` is employment and education,
+  `favorites.ts` and `blog.ts` back their own folders.
 - `public/resume.pdf` backs the download in the settings panel. Replace the file
   to update it; the link comes from `resumeHref` in `profile.ts`.
 - `statusLine` in `profile.ts` is the message next to the avatar in the status
   bar. It currently reads "Available for hire".
+- Two things in `lib/` are marked `TODO(content)`: the Instagram handle in
+  `profile.ts` is a guess, and the notes in `favorites.ts` were drafted from
+  what the rest of the site says and should be rewritten in your own voice.
 
 Cover art and icons are generated in code (`TileArt.tsx`, `Icons.tsx`), so
 adding a project needs no image assets, just a motif, two colours and a

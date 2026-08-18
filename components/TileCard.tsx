@@ -17,17 +17,22 @@ interface TileCardProps {
 /** A folder shows a 2x2 peek of the covers inside it. */
 function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
   return (
-    <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[2px] bg-white/10 p-[2px]">
-      {tile.projects.slice(0, 4).map((project) => (
-        <TileArt
-          key={project.id}
-          motif={project.art.motif}
-          from={project.art.from}
-          to={project.art.to}
-          monogram={project.art.monogram}
-          className="h-full w-full overflow-hidden"
-        />
-      ))}
+    <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[2px] bg-white/12 p-[2px]">
+      {Array.from({ length: 4 }, (_, index) => {
+        const card = tile.cards[index];
+        return card ? (
+          <TileArt
+            key={card.id}
+            motif={card.art.motif}
+            from={card.art.from}
+            to={card.art.to}
+            monogram={card.art.monogram}
+            className="h-full w-full overflow-hidden"
+          />
+        ) : (
+          <span key={`empty-${index}`} className="h-full w-full bg-base-deep/70" />
+        );
+      })}
     </div>
   );
 }
@@ -36,8 +41,8 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
   { tile, focused, open, onFocus, onActivate },
   ref,
 ) {
-  const title = tile.kind === "folder" ? tile.title : tile.project.title;
-  const description = tile.kind === "folder" ? tile.blurb : tile.project.tagline;
+  const title = tile.kind === "folder" ? tile.title : tile.card.title;
+  const description = tile.kind === "folder" ? tile.tagline : tile.card.tagline;
 
   return (
     <motion.button
@@ -49,38 +54,36 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       onFocus={onFocus}
       onMouseEnter={onFocus}
       onClick={onActivate}
-      animate={{
-        width: focused ? 176 : 128,
-        height: focused ? 176 : 128,
-      }}
+      animate={{ width: focused ? 176 : 128, height: focused ? 176 : 128 }}
       transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
       className={[
-        "relative shrink-0 self-end overflow-hidden rounded-[6px]",
+        "relative shrink-0 self-end overflow-hidden rounded-[4px] ring-1 ring-white/12",
         "outline-none transition-shadow duration-200 ease-console",
         // Only one box-shadow utility at a time. Stylesheet order, not class
         // order, decides which wins if both are applied.
-        focused ? "z-10 shadow-focus" : "shadow-tile opacity-[0.86] hover:opacity-100",
+        focused ? "z-10 shadow-focus" : "shadow-tile opacity-[0.88] hover:opacity-100",
       ].join(" ")}
     >
       {tile.kind === "folder" ? (
         <FolderArt tile={tile} />
       ) : (
         <TileArt
-          motif={tile.project.art.motif}
-          from={tile.project.art.from}
-          to={tile.project.art.to}
-          monogram={tile.project.art.monogram}
+          motif={tile.card.art.motif}
+          from={tile.card.art.from}
+          to={tile.card.art.to}
+          monogram={tile.card.art.monogram}
           className="h-full w-full"
         />
       )}
 
-      {tile.kind === "folder" && (
-        <span className="absolute bottom-1.5 right-1.5 flex items-center gap-1 rounded-sm bg-black/55 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-ink-soft backdrop-blur-sm">
+      {tile.kind === "folder" && !focused && (
+        <span className="absolute bottom-1.5 right-1.5 flex items-center gap-1 rounded-sm bg-black/45 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-ink-soft backdrop-blur-sm">
           <FolderIcon className="h-3 w-3" />
-          {tile.projects.length}
+          {tile.cards.length}
         </span>
       )}
 
+      {/* The focused tile carries the affordance that says "this opens below". */}
       {focused && (
         <motion.span
           initial={{ opacity: 0, y: 6 }}
@@ -104,7 +107,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
         className={[
           "pointer-events-none absolute inset-0 transition-opacity duration-300",
           focused ? "opacity-100" : "opacity-0",
-          "bg-[linear-gradient(180deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0)_45%)]",
+          "bg-[linear-gradient(180deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0)_45%)]",
         ].join(" ")}
       />
     </motion.button>
