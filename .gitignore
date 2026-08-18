@@ -8,3 +8,10 @@ build/
 .vercel
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# Reference screenshots are a local dev aid. They are someone else's UI, they
+# are large, and anything in public/ ships with the deployed site, so they stay
+# out of the repo. The folder's README explains what to drop in.
+public/reference/*
+!public/reference/README.md
+tsconfig.tsbuildinfo
