@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-base-deep text-ink font-sans antialiased;
+    overflow-x: hidden;
+    letter-spacing: -0.01em;
+  }
+
+  /* The interface is keyboard-first; a visible ring is part of the design,
+     not an accessibility afterthought. */
+  :focus-visible {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .text-shadow-soft {
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* ── Background wave ──────────────────────────────────────────────────────
+   Three slow, offset drifts. Blur does the heavy lifting so the shapes read
+   as light rather than as objects. */
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(-2%, 1.5%, 0) scale(1.04) rotate(-1.2deg);
+  }
+  50% {
+    transform: translate3d(2.5%, -2%, 0) scale(1.1) rotate(1deg);
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(1.5%, -1%, 0) scale(1.06) rotate(0.8deg);
+  }
+  50% {
+    transform: translate3d(-2%, 2%, 0) scale(1) rotate(-1deg);
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.42;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+.wave-a {
+  animation: drift-a 26s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.wave-b {
+  animation: drift-b 34s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.wave-glow {
+  animation: shimmer 12s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-a,
+  .wave-b,
+  .wave-glow {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
