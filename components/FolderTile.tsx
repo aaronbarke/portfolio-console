@@ -1,9 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { TileArt } from "./TileArt";
 import { ExpandPanel } from "./ExpandPanel";
+import { useHoverGuard } from "./useHoverGuard";
 import type { Card } from "@/lib/types";
 
 /**
@@ -29,10 +30,11 @@ export function FolderGrid({
 }: FolderGridProps) {
   const selected = cards.find((card) => card.id === selectedId) ?? null;
 
-  // Same guard as the main row: selecting a card reflows the grid, and a
-  // stationary cursor must not read as a deliberate hover onto its neighbour.
-  const hoverArmed = useRef(true);
+  const { armed: hoverArmed, disarm } = useHoverGuard();
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Same rule as the row: selecting a card reflows the grid.
+  useLayoutEffect(disarm, [disarm, focusIndex, selectedId]);
 
   // Move real focus with the highlight. preventScroll because the browser's
   // own scrolling would fight the panel's open animation.
@@ -40,24 +42,15 @@ export function FolderGrid({
     itemRefs.current[focusIndex]?.focus({ preventScroll: true });
   }, [focusIndex]);
 
-  useEffect(() => {
-    const rearm = () => {
-      hoverArmed.current = true;
-    };
-    window.addEventListener("mousemove", rearm);
-    return () => window.removeEventListener("mousemove", rearm);
-  }, []);
-
   const handleHover = useCallback(
     (index: number) => {
       if (hoverArmed.current) onFocusItem(index);
     },
-    [onFocusItem],
+    [hoverArmed, onFocusItem],
   );
 
   const handleSelect = useCallback(
     (index: number) => {
-      hoverArmed.current = false;
       onSelectItem(index);
     },
     [onSelectItem],

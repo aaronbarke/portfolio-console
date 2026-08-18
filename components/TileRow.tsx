@@ -1,13 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Fragment, useCallback, useEffect, useRef } from "react";
+import { Fragment, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { TileCard } from "./TileCard";
 import { ExpandPanel } from "./ExpandPanel";
 import { FolderGrid } from "./FolderTile";
 import { useHome } from "./HomeProvider";
 import { allCards } from "@/lib/sections";
 import { useTileSize } from "./useTileSize";
+import { useHoverGuard } from "./useHoverGuard";
 
 export function TileRow() {
   const {
@@ -50,29 +51,22 @@ export function TileRow() {
 
   const tileSize = useTileSize(anythingOpen);
 
-  // Opening a tile resizes the row, which can slide a different tile under a
-  // cursor that never moved. Hover only counts again after real movement.
-  const hoverArmed = useRef(true);
+  const { armed: hoverArmed, disarm } = useHoverGuard();
 
-  useEffect(() => {
-    const rearm = () => {
-      hoverArmed.current = true;
-    };
-    window.addEventListener("mousemove", rearm);
-    return () => window.removeEventListener("mousemove", rearm);
-  }, []);
+  // Layout effect so the guard lands before the browser can hit-test the new
+  // layout and report a hover the user never made.
+  useLayoutEffect(disarm, [disarm, focusIndex, expandedId, openFolderId]);
 
   const handleHover = useCallback(
     (index: number) => {
       if (!hoverArmed.current) return;
       dispatch({ type: "focus", index });
     },
-    [dispatch],
+    [hoverArmed, dispatch],
   );
 
   const handleActivate = useCallback(
     (index: number) => {
-      hoverArmed.current = false;
       dispatch({ type: "activateTile", index });
     },
     [dispatch],
