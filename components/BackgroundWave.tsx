@@ -11,48 +11,57 @@ export function BackgroundWave() {
       <div className="absolute inset-0 bg-[linear-gradient(165deg,#1651a8_0%,#1b459c_28%,#122f83_58%,#022c8a_82%,#02226b_100%)]" />
 
       <div className="wave-a absolute inset-0 origin-center">
-        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
+        <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
           <defs>
-            <linearGradient id="arc-body" x1="0" y1="1" x2="1" y2="0">
+            <linearGradient id="arc-body" x1="0.3" y1="1" x2="1" y2="0.2">
               <stop offset="0%" stopColor="#8ec8ff" stopOpacity="0" />
-              <stop offset="30%" stopColor="#9ed6ff" stopOpacity="0.3" />
-              <stop offset="62%" stopColor="#cbe9ff" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#cbe9ff" stopOpacity="0.08" />
+              <stop offset="26%" stopColor="#9ed6ff" stopOpacity="0.26" />
+              <stop offset="60%" stopColor="#cbe9ff" stopOpacity="0.34" />
+              <stop offset="100%" stopColor="#cbe9ff" stopOpacity="0.1" />
             </linearGradient>
           </defs>
           <path
-            d="M -140 1010 C 300 980, 700 860, 1000 690 C 1250 548, 1400 420, 1580 250"
+            d="M 640 1200 C 860 1090, 1030 960, 1200 900 C 1420 822, 1650 680, 1980 440"
             fill="none"
             stroke="url(#arc-body)"
-            strokeWidth="185"
+            strokeWidth="150"
             strokeLinecap="round"
-            style={{ filter: "blur(46px)" }}
+            style={{ filter: "blur(52px)" }}
           />
         </svg>
       </div>
 
       <div className="wave-b absolute inset-0 origin-center">
-        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
+        <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
           <defs>
-            <linearGradient id="arc-edge" x1="0" y1="1" x2="1" y2="0">
+            <linearGradient id="arc-edge" x1="0.3" y1="1" x2="1" y2="0.2">
               <stop offset="0%" stopColor="#cfefff" stopOpacity="0" />
-              <stop offset="34%" stopColor="#e4f6ff" stopOpacity="0.5" />
-              <stop offset="66%" stopColor="#ffffff" stopOpacity="0.62" />
-              <stop offset="100%" stopColor="#e4f6ff" stopOpacity="0.1" />
+              <stop offset="30%" stopColor="#e4f6ff" stopOpacity="0.42" />
+              <stop offset="62%" stopColor="#f2fbff" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#e4f6ff" stopOpacity="0.14" />
             </linearGradient>
           </defs>
           <path
-            d="M -140 1048 C 300 1018, 700 898, 1000 726 C 1250 584, 1400 454, 1580 282"
+            d="M 640 1200 C 860 1090, 1030 960, 1200 900 C 1420 822, 1650 680, 1980 440"
             fill="none"
             stroke="url(#arc-edge)"
-            strokeWidth="13"
+            strokeWidth="20"
             strokeLinecap="round"
+            style={{ filter: "blur(11px)" }}
+          />
+          <path
+            d="M 700 1250 C 920 1140, 1090 1010, 1260 950 C 1480 872, 1710 730, 2040 490"
+            fill="none"
+            stroke="url(#arc-edge)"
+            strokeWidth="12"
+            strokeLinecap="round"
+            opacity="0.5"
             style={{ filter: "blur(9px)" }}
           />
         </svg>
       </div>
 
-      <div className="wave-glow absolute left-[16%] top-[32%] h-[52vh] w-[64vw] rounded-full bg-[radial-gradient(closest-side,rgba(158,214,255,0.18),rgba(150,220,255,0))] blur-[60px]" />
+      <div className="wave-glow absolute bottom-[-10%] left-[42%] h-[44vh] w-[52vw] rounded-full bg-[radial-gradient(closest-side,rgba(158,214,255,0.14),rgba(158,214,255,0))] blur-[70px]" />
 
       {/* Keep the status bar and hint bar legible over whatever is behind them. */}
       <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(2,24,70,0.4)_0%,rgba(2,24,70,0)_100%)]" />
