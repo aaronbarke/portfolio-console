@@ -7,22 +7,32 @@ import { useCallback, useEffect, useState } from "react";
  * over the viewport so misalignment against the live layout is obvious, rather
  * than something you try to hold in your head while alt-tabbing.
  *
- * Drop 1920x1080 PNGs into public/reference/ and list them here.
+ * Any image dropped into public/reference/ is picked up automatically, so the
+ * filename does not matter.
  */
-const REFERENCE_IMAGES = [
-  "/reference/home.png",
-  "/reference/folder.png",
-  "/reference/background.png",
-];
-
 const BLEND_MODES = ["normal", "difference"] as const;
 
 export function ReferenceOverlay() {
+  const [images, setImages] = useState<string[]>([]);
   const [visible, setVisible] = useState(false);
   const [index, setIndex] = useState(0);
   const [opacity, setOpacity] = useState(0.5);
   const [blend, setBlend] = useState(0);
-  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/reference")
+      .then((response) => response.json())
+      .then((data: { images?: string[] }) => {
+        if (!cancelled) setImages(data.images ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setImages([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     const target = event.target;
@@ -46,12 +56,10 @@ export function ReferenceOverlay() {
         setOpacity((value) => Math.min(1, Number((value + 0.05).toFixed(2))));
         break;
       case ",":
-        setFailed(false);
-        setIndex((value) => (value - 1 + REFERENCE_IMAGES.length) % REFERENCE_IMAGES.length);
+        setIndex((value) => value - 1);
         break;
       case ".":
-        setFailed(false);
-        setIndex((value) => (value + 1) % REFERENCE_IMAGES.length);
+        setIndex((value) => value + 1);
         break;
       case "b":
         setBlend((value) => (value + 1) % BLEND_MODES.length);
@@ -66,28 +74,29 @@ export function ReferenceOverlay() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [onKeyDown]);
 
-  const source = REFERENCE_IMAGES[index];
+  // Wrap in both directions so , and . cycle regardless of how many files exist.
+  const count = images.length;
+  const source = count > 0 ? images[((index % count) + count) % count] : null;
 
   return (
     <>
       {visible && (
         <div className="pointer-events-none fixed inset-0 z-[100]">
-          {failed ? (
-            <div className="absolute inset-x-0 top-1/3 mx-auto max-w-md rounded-lg bg-black/80 p-5 text-center text-sm text-white">
-              <p className="font-semibold">No reference image at {source}</p>
-              <p className="mt-2 text-white/70">
-                Save a 1920x1080 screenshot there, or press . to try the next one.
-              </p>
-            </div>
-          ) : (
+          {source ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={source}
               alt=""
-              onError={() => setFailed(true)}
               style={{ opacity, mixBlendMode: BLEND_MODES[blend] }}
               className="h-full w-full object-cover"
             />
+          ) : (
+            <div className="absolute inset-x-0 top-1/3 mx-auto max-w-md rounded-lg bg-black/80 p-5 text-center text-sm text-white">
+              <p className="font-semibold">Nothing in public/reference/</p>
+              <p className="mt-2 text-white/70">
+                Drop an image in there and reload. Any filename works.
+              </p>
+            </div>
           )}
         </div>
       )}
@@ -95,15 +104,17 @@ export function ReferenceOverlay() {
       <div className="pointer-events-none fixed bottom-3 left-3 z-[101] rounded-md bg-black/70 px-3 py-2 font-mono text-[11px] leading-relaxed text-white/80 backdrop-blur-sm">
         {visible ? (
           <>
-            <span className="text-white">reference on</span> · {source.split("/").pop()} ·{" "}
-            {Math.round(opacity * 100)}% · {BLEND_MODES[blend]}
+            <span className="text-white">reference on</span> ·{" "}
+            {source ? source.split("/").pop() : "no images"} · {Math.round(opacity * 100)}% ·{" "}
+            {BLEND_MODES[blend]}
+            {count > 1 && ` · ${(((index % count) + count) % count) + 1}/${count}`}
             <br />
-            <span className="text-white/55">
-              r hide · [ ] opacity · , . image · b blend
-            </span>
+            <span className="text-white/55">r hide · [ ] opacity · , . image · b blend</span>
           </>
         ) : (
-          <span className="text-white/55">press r for reference overlay</span>
+          <span className="text-white/55">
+            press r for reference overlay{count > 0 ? ` (${count})` : ""}
+          </span>
         )}
       </div>
     </>

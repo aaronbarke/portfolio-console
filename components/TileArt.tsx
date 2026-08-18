@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { ArtMotif } from "@/lib/types";
 
 /**
@@ -190,6 +190,12 @@ export function TileArt({
   const [imageFailed, setImageFailed] = useState(false);
   const showImage = Boolean(image) && !imageFailed;
 
+  // If the request already failed before React attached the handler, the error
+  // event is long gone, so check the element's own state when it mounts.
+  const checkLoaded = useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete && node.naturalWidth === 0) setImageFailed(true);
+  }, []);
+
   // Gradient ids must be unique per colour pair, not per monogram, or two tiles
   // sharing a monogram would also share a fill.
   const uid = `${monogram}-${from}-${to}`.replace(/[^a-zA-Z0-9]/g, "");
@@ -247,6 +253,7 @@ export function TileArt({
         {showImage && image && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
+            ref={checkLoaded}
             src={image}
             alt=""
             onError={() => setImageFailed(true)}

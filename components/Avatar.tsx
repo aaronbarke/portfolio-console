@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { profile } from "@/lib/profile";
 
 /**
@@ -9,6 +9,11 @@ import { profile } from "@/lib/profile";
  */
 export function Avatar({ size = 34 }: { size?: number }) {
   const [failed, setFailed] = useState(false);
+
+  // Catches a 404 that resolved before hydration attached the error handler.
+  const checkLoaded = useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete && node.naturalWidth === 0) setFailed(true);
+  }, []);
 
   const initials = profile.name
     .split(" ")
@@ -21,6 +26,7 @@ export function Avatar({ size = 34 }: { size?: number }) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
+        ref={checkLoaded}
         src="/me.jpg"
         alt=""
         width={size}
