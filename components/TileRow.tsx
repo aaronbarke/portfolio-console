@@ -7,6 +7,7 @@ import { ExpandPanel } from "./ExpandPanel";
 import { FolderGrid } from "./FolderTile";
 import { useHome } from "./HomeProvider";
 import { allCards } from "@/lib/sections";
+import { useTileSize } from "./useTileSize";
 
 export function TileRow() {
   const {
@@ -35,11 +36,7 @@ export function TileRow() {
   const openKey = expandedId ?? openFolderId;
   const anythingOpen = Boolean(openKey);
 
-  // At rest the row is the whole page, so the tiles are large. Once something
-  // is open they step down to leave the panel below room without scrolling.
-  const tileSize = anythingOpen
-    ? { focused: 164, resting: 120 }
-    : { focused: 216, resting: 152 };
+  const tileSize = useTileSize(anythingOpen);
 
   const expandedCard = expandedId ? (allCards.find((c) => c.id === expandedId) ?? null) : null;
 
@@ -57,7 +54,7 @@ export function TileRow() {
       <div
         role="group"
         aria-label="Sections"
-        className="scrollbar-none flex items-end gap-3 overflow-x-auto px-1 pb-1 pt-5 sm:gap-4 sm:pt-6"
+        className="scrollbar-none flex items-start gap-2 overflow-x-auto px-4 pb-1 pt-5 sm:gap-2.5 sm:px-6 sm:pt-6 lg:px-10"
       >
         {tiles.map((tile, index) => {
           const id = tile.kind === "folder" ? tile.id : tile.card.id;
@@ -83,7 +80,7 @@ export function TileRow() {
                   initial={{ opacity: 0, x: -6 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                  className="hidden shrink-0 self-center pb-2 pl-2 pr-4 text-2xl font-medium tracking-tight text-shadow-soft md:block"
+                  className="hidden shrink-0 self-end pb-[6%] pl-4 pr-5 text-3xl font-light tracking-tight text-shadow-soft md:block"
                 >
                   {headingTitle}
                 </motion.span>
@@ -93,7 +90,7 @@ export function TileRow() {
         })}
       </div>
 
-      <div className="mt-4 min-h-[44px] px-1">
+      <div className="mt-4 min-h-[44px] px-4 sm:px-6 lg:px-10">
         <motion.div
           key={headingTitle}
           initial={{ opacity: 0, y: 4 }}

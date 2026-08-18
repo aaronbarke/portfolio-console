@@ -13,7 +13,7 @@ export function ControllerHints() {
   const backLabel = openFolderId || expandedId ? "Back" : null;
 
   return (
-    <div className="pointer-events-none flex items-center justify-end gap-5 px-1 py-4 text-xs text-ink-muted">
+    <div className="pointer-events-none flex items-center justify-end gap-5 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-10">
       <span className="hidden items-center gap-2 sm:flex">
         <Key>←</Key>
         <Key>→</Key>

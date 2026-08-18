@@ -38,7 +38,7 @@ export function FolderGrid({
         height: { type: "spring", stiffness: 200, damping: 34 },
         opacity: { duration: 0.26, ease: "easeOut" },
       }}
-      className="overflow-hidden"
+      className="overflow-hidden px-4 sm:px-6 lg:px-10"
     >
       <div className="mt-5 border-t border-white/14 pt-5">
         <div className="flex items-center gap-3 px-1">
@@ -91,7 +91,11 @@ export function FolderGrid({
         </ul>
 
         <AnimatePresence initial={false} mode="wait">
-          {selected && <ExpandPanel key={selected.id} card={selected} />}
+          {selected && (
+            <div className="-mx-4 sm:-mx-6 lg:-mx-10">
+              <ExpandPanel key={selected.id} card={selected} />
+            </div>
+          )}
         </AnimatePresence>
       </div>
     </motion.section>

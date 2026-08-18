@@ -18,7 +18,7 @@ const socialIcons: Record<string, (props: { className?: string }) => JSX.Element
  */
 export function TopBar() {
   return (
-    <header className="flex items-center gap-2 px-1 py-4 sm:gap-4">
+    <header className="flex items-center gap-2 px-4 py-4 sm:gap-4 sm:px-6 lg:px-10">
       <div className="flex min-w-0 items-center gap-3 px-1 py-1">
         <Avatar />
         <span className="min-w-0">

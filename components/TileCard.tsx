@@ -59,10 +59,16 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       onFocus={onFocus}
       onMouseEnter={onFocus}
       onClick={onActivate}
-      animate={{ width: focused ? size.focused : size.resting, height: focused ? size.focused : size.resting }}
+      // Without this the first paint has no width, so the intrinsic size of the
+      // art (~600px) is what the spring animates down from, which flashes.
+      initial={false}
+      animate={{
+        width: focused ? size.focused : size.resting,
+        height: focused ? size.focused : size.resting,
+      }}
       transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
       className={[
-        "relative shrink-0 self-end overflow-hidden rounded-[4px] ring-1 ring-white/12",
+        "relative shrink-0 self-start overflow-hidden rounded-[4px] ring-1 ring-white/12",
         "outline-none transition-shadow duration-200 ease-console",
         // Only one box-shadow utility at a time. Stylesheet order, not class
         // order, decides which wins if both are applied.

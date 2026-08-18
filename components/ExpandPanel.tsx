@@ -135,7 +135,7 @@ export function ExpandPanel({ card }: { card: Card }) {
         height: { type: "spring", stiffness: 200, damping: 34 },
         opacity: { duration: 0.26, ease: "easeOut" },
       }}
-      className="overflow-hidden"
+      className="overflow-hidden px-4 sm:px-6 lg:px-10"
     >
       <div className="mt-6 rounded-lg border border-white/14 bg-[linear-gradient(180deg,rgba(9,28,86,0.82)_0%,rgba(4,17,60,0.78)_100%)] shadow-panel backdrop-blur-xl">
         <div className="grid gap-7 p-6 sm:p-8 lg:grid-cols-[220px_minmax(0,1fr)]">

@@ -16,14 +16,14 @@ function Screen() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col px-4 sm:px-6 lg:px-8"
+      className="flex min-h-dvh w-full flex-col"
     >
       <TopBar />
 
       <motion.main
         id="main"
         className="flex flex-1 flex-col pb-6"
-        animate={{ paddingTop: isIdle ? "14vh" : "1.5rem" }}
+        animate={{ paddingTop: isIdle ? "9vh" : "1rem" }}
         transition={{ type: "spring", stiffness: 190, damping: 30 }}
       >
         <motion.div

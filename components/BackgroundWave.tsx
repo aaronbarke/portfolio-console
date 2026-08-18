@@ -21,10 +21,10 @@ export function BackgroundWave() {
             </linearGradient>
           </defs>
           <path
-            d="M -120 780 C 320 700, 720 470, 1010 250 C 1220 92, 1360 20, 1560 -70"
+            d="M -140 1010 C 300 980, 700 860, 1000 690 C 1250 548, 1400 420, 1580 250"
             fill="none"
             stroke="url(#arc-body)"
-            strokeWidth="150"
+            strokeWidth="185"
             strokeLinecap="round"
             style={{ filter: "blur(46px)" }}
           />
@@ -42,10 +42,10 @@ export function BackgroundWave() {
             </linearGradient>
           </defs>
           <path
-            d="M -120 812 C 320 732, 720 500, 1010 280 C 1220 122, 1360 50, 1560 -40"
+            d="M -140 1048 C 300 1018, 700 898, 1000 726 C 1250 584, 1400 454, 1580 282"
             fill="none"
             stroke="url(#arc-edge)"
-            strokeWidth="16"
+            strokeWidth="13"
             strokeLinecap="round"
             style={{ filter: "blur(9px)" }}
           />
