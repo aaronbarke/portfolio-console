@@ -34,6 +34,8 @@ function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
           accent={card.art.accent}
           image={card.art.image}
           imageFit={card.art.imageFit}
+          imageBackground={card.art.imageBackground}
+          imagePosition={card.art.imagePosition}
             className="h-full w-full overflow-hidden"
           />
         ) : (
@@ -103,6 +105,8 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
             accent={tile.card.art.accent}
             image={tile.card.art.image}
             imageFit={tile.card.art.imageFit}
+            imageBackground={tile.card.art.imageBackground}
+            imagePosition={tile.card.art.imagePosition}
             className="h-full w-full"
           />
         )}

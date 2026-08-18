@@ -17,6 +17,8 @@ interface TileArtProps {
   accent?: string;
   image?: string;
   imageFit?: "cover" | "contain";
+  imageBackground?: string;
+  imagePosition?: "top" | "center";
   className?: string;
 }
 
@@ -185,6 +187,8 @@ export function TileArt({
   accent,
   image,
   imageFit = "cover",
+  imageBackground,
+  imagePosition = "center",
   className,
 }: TileArtProps) {
   // A missing file falls back to the drawn cover rather than a broken image.
@@ -253,17 +257,26 @@ export function TileArt({
         </svg>
 
         {showImage && src && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            ref={checkLoaded}
-            src={src}
-            alt=""
-            onError={() => setImageFailed(true)}
-            className={[
-              "absolute inset-0 h-full w-full",
-              imageFit === "contain" ? "object-contain p-[14%]" : "object-cover object-top",
-            ].join(" ")}
-          />
+          <span
+            className="absolute inset-0"
+            style={imageFit === "contain" && imageBackground ? { background: imageBackground } : undefined}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              ref={checkLoaded}
+              src={src}
+              alt=""
+              onError={() => setImageFailed(true)}
+              className={[
+                "h-full w-full",
+                imageFit === "contain"
+                  ? "object-contain p-[10%]"
+                  : imagePosition === "top"
+                    ? "object-cover object-top"
+                    : "object-cover object-center",
+              ].join(" ")}
+            />
+          </span>
         )}
       </div>
     </div>

@@ -28,8 +28,16 @@ export interface Art {
    * A key with no matching file falls back to the drawn cover.
    */
   image?: string;
-  /** "cover" fills the tile (game art); "contain" centres it (logos). */
+  /**
+   * "cover" fills the tile, which is right for anything that already carries
+   * its own background. "contain" centres it, for artwork with transparency or
+   * an awkward aspect ratio, and needs imageBackground to sit on.
+   */
   imageFit?: "cover" | "contain";
+  /** Backdrop for "contain", so the letterboxing is invisible. */
+  imageBackground?: string;
+  /** Where a "cover" crop anchors. Portraits need "top" to keep the face. */
+  imagePosition?: "top" | "center";
 }
 
 export interface ProjectLink {

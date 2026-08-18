@@ -28,24 +28,19 @@ Full-bleed cover art. Square, 512x512 or larger.
 
 ## Work Experience folder
 
-Logos, centred on the tile's gradient rather than cropped. PNG with a
-transparent background works best.
-
-| File | Tile |
-| --- | --- |
-| `public/covers/walnut-insurance.*` | Walnut Insurance |
-| `public/covers/genesisx.*` | GenesisX |
-| `public/covers/target.*` | Target |
-| `public/covers/lake-marion.*` | Lake Marion Collision Center |
+| File | Tile | Status |
+| --- | --- | --- |
+| `public/covers/walnut-insurance.*` | Walnut Insurance | **done** |
+| `public/covers/genesisx.*` | GenesisX | **done** |
+| `public/covers/target.*` | Target | **done** |
+| `public/covers/lake-marion.*` | Lake Marion Collision Center | **done**, low resolution |
 
 ## Education folder
 
-Same treatment as the logos above.
-
-| File | Tile |
-| --- | --- |
-| `public/covers/umn.*` | University of Minnesota |
-| `public/covers/lakeville-south.*` | Lakeville South High School |
+| File | Tile | Status |
+| --- | --- | --- |
+| `public/covers/umn.*` | University of Minnesota | **done** |
+| `public/covers/lakeville-south.*` | Lakeville South High School | **done** |
 
 ## Tiles with no image slot
 
@@ -58,6 +53,23 @@ than full-bleed art.
 
 ## Changing fit
 
-`imageFit: "cover"` fills the tile edge to edge and crops. `imageFit: "contain"`
-centres the image at about 72% size over the gradient, which is what the logos
-use. The default is `"cover"`.
+`imageFit: "cover"` is the default and fills the tile edge to edge, cropping to
+square. It is right for anything that already carries its own background, which
+includes every logo here: they read as app icons rather than as stickers on a
+blue field.
+
+`imageFit: "contain"` centres the image instead, and needs `imageBackground` set
+to a colour that matches the artwork so the letterboxing is invisible. Use it
+when an image has transparency, or an aspect ratio far enough from square that
+cropping would cut something important. Lake Marion is the only one here that
+needs it, at 1.48:1.
+
+`imagePosition: "top"` anchors a cover crop to the top instead of the centre.
+The headshot uses it, so a portrait keeps the face rather than filling the tile
+with a tie.
+
+## Replacing a weak asset
+
+`lake-marion.jpg` is 225x152, so it upscales on a 336px tile and looks soft. A
+larger source would sharpen it, and a square one would let it drop the contain
+treatment and fill the tile like the rest.

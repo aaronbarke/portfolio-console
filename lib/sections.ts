@@ -19,10 +19,10 @@ function projectCard(project: Project): Card {
 const projectCards: Card[] = [...featuredProjects, ...experimentProjects].map(projectCard);
 
 const roleArt: Art[] = [
-  { motif: "bars", from: "#1d4ed8", to: "#0a1b4d", monogram: "WI", image: "walnut-insurance", imageFit: "contain" },
-  { motif: "orbit", from: "#3b2a8c", to: "#130d38", monogram: "GX", image: "genesisx", imageFit: "contain" },
-  { motif: "scatter", from: "#b3241f", to: "#3a0b09", monogram: "TG", image: "target", imageFit: "contain" },
-  { motif: "grid", from: "#155e75", to: "#062330", monogram: "LM", image: "lake-marion", imageFit: "contain" },
+  { motif: "bars", from: "#1d4ed8", to: "#0a1b4d", monogram: "WI", image: "walnut-insurance" },
+  { motif: "orbit", from: "#3b2a8c", to: "#130d38", monogram: "GX", image: "genesisx" },
+  { motif: "scatter", from: "#b3241f", to: "#3a0b09", monogram: "TG", image: "target" },
+  { motif: "grid", from: "#155e75", to: "#062330", monogram: "LM", image: "lake-marion", imageFit: "contain", imageBackground: "#f4f7f7" },
 ];
 
 const roleCards: Card[] = experience.map((entry, index) => ({
@@ -34,8 +34,8 @@ const roleCards: Card[] = experience.map((entry, index) => ({
 }));
 
 const educationArt: Art[] = [
-  { motif: "cap", from: "#7a0019", to: "#2c0009", monogram: "UM", image: "umn", imageFit: "contain" },
-  { motif: "page", from: "#8c1d2f", to: "#2e0a11", monogram: "LS", image: "lakeville-south", imageFit: "contain" },
+  { motif: "cap", from: "#7a0019", to: "#2c0009", monogram: "UM", image: "umn" },
+  { motif: "page", from: "#8c1d2f", to: "#2e0a11", monogram: "LS", image: "lakeville-south" },
 ];
 
 const educationCards: Card[] = education.map((entry, index) => ({
@@ -66,7 +66,7 @@ const aboutCard: Card = {
   id: "about",
   title: "About",
   tagline: profile.headline,
-  art: { motif: "orbit", from: "#17408f", to: "#04123f", monogram: "AB", image: "me" },
+  art: { motif: "orbit", from: "#17408f", to: "#04123f", monogram: "AB", image: "me", imagePosition: "top" },
   body: { type: "about" },
 };
 

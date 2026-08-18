@@ -148,6 +148,8 @@ export function ExpandPanel({ card }: { card: Card }) {
           accent={card.art.accent}
           image={card.art.image}
           imageFit={card.art.imageFit}
+          imageBackground={card.art.imageBackground}
+          imagePosition={card.art.imagePosition}
               className="aspect-square w-full max-w-[220px] overflow-hidden rounded-md shadow-tile"
             />
             <div className="flex flex-col gap-2">

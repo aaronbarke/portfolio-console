@@ -104,6 +104,8 @@ export function FolderGrid({
           accent={card.art.accent}
           image={card.art.image}
           imageFit={card.art.imageFit}
+          imageBackground={card.art.imageBackground}
+          imagePosition={card.art.imagePosition}
                     className={[
                       "aspect-square w-full overflow-hidden rounded-[4px] transition-shadow duration-200",
                       focused ? "shadow-focus" : "shadow-tile opacity-90 group-hover:opacity-100",
