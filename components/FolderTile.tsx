@@ -32,6 +32,13 @@ export function FolderGrid({
   // Same guard as the main row: selecting a card reflows the grid, and a
   // stationary cursor must not read as a deliberate hover onto its neighbour.
   const hoverArmed = useRef(true);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Move real focus with the highlight. preventScroll because the browser's
+  // own scrolling would fight the panel's open animation.
+  useEffect(() => {
+    itemRefs.current[focusIndex]?.focus({ preventScroll: true });
+  }, [focusIndex]);
 
   useEffect(() => {
     const rearm = () => {
@@ -86,6 +93,9 @@ export function FolderGrid({
             return (
               <li key={card.id}>
                 <motion.button
+                  ref={(node) => {
+                    itemRefs.current[index] = node;
+                  }}
                   type="button"
                   aria-expanded={open}
                   tabIndex={focused ? 0 : -1}

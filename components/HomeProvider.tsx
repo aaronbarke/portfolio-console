@@ -109,8 +109,15 @@ function reducer(state: HomeState, action: HomeAction): HomeState {
       };
     }
 
-    case "activate":
+    case "activate": {
+      // Inside an open folder, "open" means the highlighted item in that
+      // folder. Without this it applied to the row tile instead, which just
+      // closed the folder you were standing in.
+      if (state.openFolderId) {
+        return reducer(state, { type: "selectFolderItem", index: state.folderFocusIndex });
+      }
       return activate(state, state.focusIndex);
+    }
 
     case "activateTile":
       return activate(state, action.index);
@@ -210,12 +217,16 @@ export function useConsoleKeyboard(): void {
           event.preventDefault();
           dispatch(openFolderId ? { type: "moveFolder", delta: 1 } : { type: "move", delta: 1 });
           break;
-        case "Enter":
-          // A focused button or link handles its own Enter; don't toggle twice.
-          if (target?.closest("button, a")) return;
+        case "Enter": {
+          // Links keep their default behaviour. Everything else is handled
+          // here, and preventDefault stops the focused button also firing a
+          // native click, which is what made Enter's meaning depend on where
+          // focus happened to be sitting.
+          if (target?.closest("a")) return;
           event.preventDefault();
           dispatch({ type: "activate" });
           break;
+        }
         case "ArrowDown":
           event.preventDefault();
           dispatch({ type: "activate" });

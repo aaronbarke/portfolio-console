@@ -36,6 +36,16 @@ export function TileRow() {
   }, [focusIndex]);
 
   const openKey = expandedId ?? openFolderId;
+
+  // Closing a folder hands focus back to the tile it belongs to, so the
+  // keyboard never ends up stranded on a control that no longer exists.
+  const hadFolderOpen = useRef(false);
+  useEffect(() => {
+    if (hadFolderOpen.current && !openFolderId) {
+      tileRefs.current[focusIndex]?.focus({ preventScroll: true });
+    }
+    hadFolderOpen.current = Boolean(openFolderId);
+  }, [openFolderId, focusIndex]);
   const anythingOpen = Boolean(openKey);
 
   const tileSize = useTileSize(anythingOpen);
