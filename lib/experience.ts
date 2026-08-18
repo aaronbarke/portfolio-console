@@ -76,7 +76,7 @@ export const education: ExperienceEntry[] = [
     role: "High School Diploma",
     period: "Sep 2020 to Jun 2024",
     location: "Lakeville, Minnesota",
-    points: [],
+    points: ["GPA 3.97 / 4.00"],
   },
 ];
 
