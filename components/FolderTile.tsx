@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef } from "react";
 import { TileArt } from "./TileArt";
 import { ExpandPanel } from "./ExpandPanel";
 import type { Card } from "@/lib/types";
@@ -27,6 +28,33 @@ export function FolderGrid({
   onSelectItem,
 }: FolderGridProps) {
   const selected = cards.find((card) => card.id === selectedId) ?? null;
+
+  // Same guard as the main row: selecting a card reflows the grid, and a
+  // stationary cursor must not read as a deliberate hover onto its neighbour.
+  const hoverArmed = useRef(true);
+
+  useEffect(() => {
+    const rearm = () => {
+      hoverArmed.current = true;
+    };
+    window.addEventListener("mousemove", rearm);
+    return () => window.removeEventListener("mousemove", rearm);
+  }, []);
+
+  const handleHover = useCallback(
+    (index: number) => {
+      if (hoverArmed.current) onFocusItem(index);
+    },
+    [onFocusItem],
+  );
+
+  const handleSelect = useCallback(
+    (index: number) => {
+      hoverArmed.current = false;
+      onSelectItem(index);
+    },
+    [onSelectItem],
+  );
 
   return (
     <motion.section
@@ -62,8 +90,8 @@ export function FolderGrid({
                   aria-expanded={open}
                   tabIndex={focused ? 0 : -1}
                   onFocus={() => onFocusItem(index)}
-                  onMouseEnter={() => onFocusItem(index)}
-                  onClick={() => onSelectItem(index)}
+                  onMouseEnter={() => handleHover(index)}
+                  onClick={() => handleSelect(index)}
                   animate={{ scale: focused ? 1.04 : 1 }}
                   transition={{ type: "spring", stiffness: 240, damping: 28 }}
                   className="group flex w-[120px] shrink-0 flex-col gap-2 rounded-md outline-none sm:w-[136px]"

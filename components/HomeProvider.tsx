@@ -80,10 +80,16 @@ function activate(state: HomeState, index: number): HomeState {
 
 function reducer(state: HomeState, action: HomeAction): HomeState {
   switch (action.type) {
-    case "focus":
-      return state.focusIndex === action.index
-        ? state
-        : { ...state, focusIndex: clamp(action.index, homeTiles.length - 1) };
+    case "focus": {
+      if (state.focusIndex === action.index) return state;
+      return {
+        ...state,
+        focusIndex: clamp(action.index, homeTiles.length - 1),
+        expandedId: null,
+        openFolderId: null,
+        folderSelectedId: null,
+      };
+    }
 
     case "move": {
       const next = clamp(state.focusIndex + action.delta, homeTiles.length - 1);

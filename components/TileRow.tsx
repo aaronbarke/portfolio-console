@@ -1,13 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useCallback, useEffect, useRef } from "react";
 import { TileCard } from "./TileCard";
 import { ExpandPanel } from "./ExpandPanel";
 import { FolderGrid } from "./FolderTile";
 import { useHome } from "./HomeProvider";
 import { allCards } from "@/lib/sections";
 import { useTileSize } from "./useTileSize";
+import { FillerTile } from "./FillerTile";
 
 export function TileRow() {
   const {
@@ -38,6 +39,34 @@ export function TileRow() {
 
   const tileSize = useTileSize(anythingOpen);
 
+  // Opening a tile resizes the row, which can slide a different tile under a
+  // cursor that never moved. Hover only counts again after real movement.
+  const hoverArmed = useRef(true);
+
+  useEffect(() => {
+    const rearm = () => {
+      hoverArmed.current = true;
+    };
+    window.addEventListener("mousemove", rearm);
+    return () => window.removeEventListener("mousemove", rearm);
+  }, []);
+
+  const handleHover = useCallback(
+    (index: number) => {
+      if (!hoverArmed.current) return;
+      dispatch({ type: "focus", index });
+    },
+    [dispatch],
+  );
+
+  const handleActivate = useCallback(
+    (index: number) => {
+      hoverArmed.current = false;
+      dispatch({ type: "activateTile", index });
+    },
+    [dispatch],
+  );
+
   const expandedCard = expandedId ? (allCards.find((c) => c.id === expandedId) ?? null) : null;
 
   const openFolder =
@@ -56,6 +85,9 @@ export function TileRow() {
         aria-label="Sections"
         className="scrollbar-none flex items-start gap-2 overflow-x-auto px-4 pb-1 pt-5 sm:gap-2.5 sm:px-6 sm:pt-6 lg:px-10"
       >
+        <FillerTile kind="store" size={tileSize.resting} />
+        <FillerTile kind="shapes" size={tileSize.resting} />
+
         {tiles.map((tile, index) => {
           const id = tile.kind === "folder" ? tile.id : tile.card.id;
           const focused = index === focusIndex;
@@ -70,20 +102,25 @@ export function TileRow() {
                 size={tileSize}
                 open={tile.kind === "folder" ? openFolderId === tile.id : expandedId === id}
                 onFocus={() => dispatch({ type: "focus", index })}
-                onActivate={() => dispatch({ type: "activateTile", index })}
+                onHover={() => handleHover(index)}
+                onActivate={() => handleActivate(index)}
               />
 
               {/* The highlighted tile is named beside it, the way a console does. */}
               {focused && (
-                <motion.span
+                <span
                   key={`${id}-label`}
-                  initial={{ opacity: 0, x: -6 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                  className="hidden shrink-0 self-end pb-[6%] pl-4 pr-5 text-3xl font-light tracking-tight text-shadow-soft md:block"
+                  className="relative hidden w-0 shrink-0 self-end md:block"
                 >
-                  {headingTitle}
-                </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute bottom-1 left-4 whitespace-nowrap text-3xl font-light tracking-tight text-shadow-soft"
+                  >
+                    {headingTitle}
+                  </motion.span>
+                </span>
               )}
             </Fragment>
           );

@@ -13,6 +13,7 @@ interface TileCardProps {
   /** Tiles shrink once something is open, to leave the panel room. */
   size: { focused: number; resting: number };
   onFocus: () => void;
+  onHover: () => void;
   onActivate: () => void;
 }
 
@@ -43,7 +44,7 @@ function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
 }
 
 export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function TileCard(
-  { tile, focused, open, size, onFocus, onActivate },
+  { tile, focused, open, size, onFocus, onHover, onActivate },
   ref,
 ) {
   const title = tile.kind === "folder" ? tile.title : tile.card.title;
@@ -57,7 +58,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       aria-label={`${title}. ${description}`}
       tabIndex={focused ? 0 : -1}
       onFocus={onFocus}
-      onMouseEnter={onFocus}
+      onMouseEnter={onHover}
       onClick={onActivate}
       // Without this the first paint has no width, so the intrinsic size of the
       // art (~600px) is what the spring animates down from, which flashes.
