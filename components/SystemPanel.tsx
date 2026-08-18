@@ -72,10 +72,10 @@ export function SystemPanel() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="system-panel-title"
-            initial={{ opacity: 0, y: 28, scale: 0.985 }}
+            initial={{ opacity: 0, y: 14, scale: 0.995 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.99 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            exit={{ opacity: 0, y: 10, scale: 0.995 }}
+            transition={{ type: "spring", stiffness: 240, damping: 30 }}
             className="relative my-auto w-full max-w-3xl rounded-xl border border-white/12 bg-[linear-gradient(180deg,rgba(10,36,60,0.94)_0%,rgba(5,18,31,0.94)_100%)] shadow-panel"
           >
             <header className="flex items-start justify-between gap-4 border-b border-white/10 px-6 py-5 sm:px-8">

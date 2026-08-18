@@ -1,42 +1,66 @@
 import type { ExperienceEntry } from "./types";
 
-/**
- * TODO(content): the two roles below are placeholders — real titles, dates and
- * responsibilities need filling in before this site goes live. Everything else
- * on the site is real; this file is the only thing that is not.
- */
+/** Employment, most recent first. */
 export const experience: ExperienceEntry[] = [
   {
-    org: "GenesisX",
-    role: "ROLE TITLE — fill in",
-    period: "20XX — 20XX",
+    org: "Walnut Insurance",
+    role: "AI Automation Engineer (Contract)",
+    period: "Apr 2026 to Present",
+    location: "Remote",
     points: [
-      "Replace with what you actually owned here.",
-      "One line per outcome, with a number in it wherever possible.",
+      "Designed and built an end-to-end automated outbound sales pipeline as the sole engineer, integrating the Apollo, HubSpot, OpenAI and Microsoft Graph APIs.",
+      "Built an LLM-based lead qualification system with tiered classification logic, iterating on prompt design with stakeholders against real production data.",
+      "Integrated CRM, email and messaging systems with deduplication, audit logging and scheduled automation across HubSpot, Outlook, Slack and Google Sheets.",
+      "Coordinated across executive, product and IT stakeholders to scope requirements, resolve technical blockers and deploy into a SOC 2-restricted production environment.",
     ],
   },
   {
-    org: "Walnut Insurance",
-    role: "ROLE TITLE — fill in",
-    period: "20XX — 20XX",
+    org: "GenesisX",
+    role: "AI / LLM Tooling Intern",
+    period: "May 2025 to Apr 2026",
+    location: "Remote",
     points: [
-      "Replace with what you actually owned here.",
-      "One line per outcome, with a number in it wherever possible.",
+      "Automated Google Ads reporting workflows, extracting demographic and campaign keyword data into Google Sheets for visualisation.",
+      "Created AI-driven video and content assets with Runway and MidJourney to support marketing campaigns and commercial projects.",
+      "Worked with marketing and technical teams to streamline workflows and improve creative output.",
     ],
   },
 ];
 
-/** Self-directed work, shown alongside the employment timeline. */
+/** Self-directed work, shown above the employment timeline. */
 export const independentWork: ExperienceEntry[] = [
   {
     org: "Independent builds",
     role: "Full-stack & systems work",
-    period: "2026 — present",
+    period: "2023 to Present",
     points: [
-      "Designed and shipped ten independent systems spanning full-stack web, native iOS and quantitative research.",
+      "Shipped eleven independent systems spanning full-stack web, native iOS, published game content and quantitative research.",
       "Built production-shaped infrastructure end to end: Postgres schemas, scheduled ingestion, Docker Compose stacks, CI and alerting.",
-      "Wrote the test suites to match — 562 tests on the quant platform, 222 plus end-to-end coverage on ScentScout.",
+      "Wrote the test suites to match: 562 tests on the quant platform, 222 plus end-to-end coverage on ScentScout.",
       "Treated safety as a design constraint: manual promotion gates, fail-closed admin checks and kill switches on anything that could touch money.",
+    ],
+  },
+];
+
+export const education: ExperienceEntry[] = [
+  {
+    org: "University of Minnesota",
+    role: "B.S. Computer Science",
+    period: "Expected May 2028",
+    location: "College of Science and Engineering",
+    points: ["GPA 3.26 / 4.00"],
+  },
+];
+
+/** Writing and other published work. */
+export const publications: ExperienceEntry[] = [
+  {
+    org: "Both.org",
+    role: "Generative AI and Student Learning: Ethical and Cognitive Impacts",
+    period: "Sep to Dec 2024",
+    location: "University of Minnesota, WRIT 1301",
+    points: [
+      "Interviewed a UMN professor on generative AI's influence on higher education and authored a published article on its impact on student learning and educational policy.",
     ],
   },
 ];

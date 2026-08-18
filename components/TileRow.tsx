@@ -110,9 +110,9 @@ export function TileRow() {
       <div className="mt-4 min-h-[52px] px-1">
         <motion.div
           key={headingTitle}
-          initial={{ opacity: 0, y: 6 }}
+          initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
         >
           <h1 className="text-xl font-semibold tracking-tight text-shadow-soft sm:text-2xl">
             {headingTitle}

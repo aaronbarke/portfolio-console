@@ -1,70 +1,65 @@
 /**
- * Animated background: a deep blue field with a bright ribbon sweeping across
- * it diagonally. The ribbon is an SVG path with a gradient fill, blurred hard
- * enough to read as light rather than as a shape, and drifting on a long loop.
- * All motion is CSS so it stays cheap, and it is switched off entirely under
- * prefers-reduced-motion (see globals.css).
+ * Animated background: a saturated blue field with a single bright arc sweeping
+ * across it. The arc is a stroked path drawn twice, once wide and soft for the
+ * body and once thin and bright for its leading edge, drifting on a long,
+ * shallow loop. Motion is CSS so it stays cheap, and it switches off entirely
+ * under prefers-reduced-motion (see globals.css).
  */
 export function BackgroundWave() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(125%_105%_at_12%_-12%,#0f6cb4_0%,#0a4b85_26%,#062f57_50%,#041d36_72%,#030f1e_92%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(165deg,#1a6ecd_0%,#1059b0_24%,#0c478f_48%,#08356e_72%,#04244c_100%)]" />
 
-      {/* Broad, soft body of the wave. */}
-      <div className="wave-a absolute inset-x-[-15%] top-[-10%] h-[130%] origin-center">
-        <svg
-          viewBox="0 0 1200 800"
-          preserveAspectRatio="none"
-          className="h-full w-full blur-[60px]"
-        >
+      <div className="wave-a absolute inset-0 origin-center">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
           <defs>
-            <linearGradient id="ribbon-body" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stopColor="#0b3a63" stopOpacity="0" />
-              <stop offset="28%" stopColor="#1e93de" stopOpacity="0.62" />
-              <stop offset="55%" stopColor="#5cc4f5" stopOpacity="0.8" />
-              <stop offset="82%" stopColor="#1176c9" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#04101c" stopOpacity="0" />
+            <linearGradient id="arc-body" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stopColor="#7cc9ff" stopOpacity="0" />
+              <stop offset="30%" stopColor="#8fd4ff" stopOpacity="0.32" />
+              <stop offset="62%" stopColor="#c4eaff" stopOpacity="0.42" />
+              <stop offset="100%" stopColor="#c4eaff" stopOpacity="0.08" />
             </linearGradient>
           </defs>
           <path
-            d="M-100 690 C 180 640, 300 430, 560 380 C 800 334, 950 220, 1300 90 L1300 330 C 980 430, 820 520, 600 580 C 380 640, 220 760, -100 830 Z"
-            fill="url(#ribbon-body)"
+            d="M -120 780 C 320 700, 720 470, 1010 250 C 1220 92, 1360 20, 1560 -70"
+            fill="none"
+            stroke="url(#arc-body)"
+            strokeWidth="150"
+            strokeLinecap="round"
+            style={{ filter: "blur(46px)" }}
           />
         </svg>
       </div>
 
-      {/* Bright core running along the same path, kept thin so the wave has an edge. */}
-      <div className="wave-b absolute inset-x-[-12%] top-[-6%] h-[120%] origin-center">
-        <svg
-          viewBox="0 0 1200 800"
-          preserveAspectRatio="none"
-          className="h-full w-full blur-[18px]"
-        >
+      <div className="wave-b absolute inset-0 origin-center">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
           <defs>
-            <linearGradient id="ribbon-core" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stopColor="#8fdcff" stopOpacity="0" />
-              <stop offset="35%" stopColor="#cdf3ff" stopOpacity="0.62" />
-              <stop offset="62%" stopColor="#a9e6ff" stopOpacity="0.82" />
-              <stop offset="88%" stopColor="#6ec8ff" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="#6ec8ff" stopOpacity="0" />
+            <linearGradient id="arc-edge" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stopColor="#cfefff" stopOpacity="0" />
+              <stop offset="34%" stopColor="#e4f6ff" stopOpacity="0.5" />
+              <stop offset="66%" stopColor="#ffffff" stopOpacity="0.62" />
+              <stop offset="100%" stopColor="#e4f6ff" stopOpacity="0.1" />
             </linearGradient>
           </defs>
           <path
-            d="M-100 700 C 180 650, 300 440, 560 390 C 800 344, 950 230, 1300 100 L1300 168 C 950 300, 800 408, 566 452 C 320 500, 180 690, -100 748 Z"
-            fill="url(#ribbon-core)"
+            d="M -120 812 C 320 732, 720 500, 1010 280 C 1220 122, 1360 50, 1560 -40"
+            fill="none"
+            stroke="url(#arc-edge)"
+            strokeWidth="16"
+            strokeLinecap="round"
+            style={{ filter: "blur(9px)" }}
           />
         </svg>
       </div>
 
-      {/* Ambient bloom where the wave is brightest. */}
-      <div className="wave-glow absolute left-[6%] top-[14%] h-[46vh] w-[52vw] rounded-full bg-[radial-gradient(closest-side,rgba(126,214,255,0.4),rgba(126,214,255,0))] blur-[50px]" />
+      <div className="wave-glow absolute left-[16%] top-[32%] h-[52vh] w-[64vw] rounded-full bg-[radial-gradient(closest-side,rgba(150,220,255,0.2),rgba(150,220,255,0))] blur-[60px]" />
 
       {/* Keep the status bar and hint bar legible over whatever is behind them. */}
-      <div className="absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,rgba(3,10,18,0.72)_0%,rgba(3,10,18,0)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(0deg,rgba(3,12,24,0.72)_0%,rgba(3,12,24,0)_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(4,26,58,0.46)_0%,rgba(4,26,58,0)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-52 bg-[linear-gradient(0deg,rgba(4,24,54,0.54)_0%,rgba(4,24,54,0)_100%)]" />
 
       <div
-        className="absolute inset-0 opacity-[0.04] mix-blend-overlay"
+        className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E\")",

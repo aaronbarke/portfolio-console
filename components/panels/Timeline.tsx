@@ -1,4 +1,4 @@
-import { experience, independentWork } from "@/lib/experience";
+import { education, experience, independentWork, publications } from "@/lib/experience";
 import type { ExperienceEntry } from "@/lib/types";
 
 function Entry({ entry }: { entry: ExperienceEntry }) {
@@ -32,6 +32,15 @@ export function Timeline() {
   return (
     <div className="space-y-9">
       <section>
+        <h2 className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">Experience</h2>
+        <ul className="mt-4 space-y-8 border-l border-white/12 pl-0">
+          {experience.map((entry) => (
+            <Entry key={entry.org} entry={entry} />
+          ))}
+        </ul>
+      </section>
+
+      <section>
         <h2 className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">Building</h2>
         <ul className="mt-4 space-y-8 border-l border-white/12 pl-0">
           {independentWork.map((entry) => (
@@ -41,9 +50,18 @@ export function Timeline() {
       </section>
 
       <section>
-        <h2 className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">Experience</h2>
+        <h2 className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">Writing</h2>
         <ul className="mt-4 space-y-8 border-l border-white/12 pl-0">
-          {experience.map((entry) => (
+          {publications.map((entry) => (
+            <Entry key={entry.org} entry={entry} />
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2 className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">Education</h2>
+        <ul className="mt-4 space-y-8 border-l border-white/12 pl-0">
+          {education.map((entry) => (
             <Entry key={entry.org} entry={entry} />
           ))}
         </ul>

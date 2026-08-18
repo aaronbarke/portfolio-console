@@ -5,18 +5,16 @@ export const profile: Profile = {
   onlineId: "aaronbarke",
   // Shown next to the avatar in the top bar, like a console status message.
   statusLine: "Available for hire",
-  headline: "Full-stack engineer building data-heavy products end to end.",
+  headline: "Computer science student building AI tooling and data-heavy products end to end.",
   bio: [
-    "I build systems that have to be right, not just working — products where the interesting part is the data model and the failure modes rather than the CRUD.",
-    "Most of what is on this page is self-directed: fantasy sports tooling with an AI layer that cites its sources, a price-comparison product built around exact-variant matching, and a set of quantitative research systems where the framework's main job is rejecting strategies that only looked good in sample.",
+    "I'm a computer science student at the University of Minnesota, currently working as the sole engineer on an automated outbound sales pipeline at Walnut Insurance. Apollo, HubSpot, OpenAI and Microsoft Graph wired together, with an LLM qualification layer on top, deployed into a SOC 2-restricted environment.",
+    "Outside of that I build systems that have to be right, not just working: products where the interesting part is the data model and the failure modes rather than the CRUD. Fantasy sports tooling with an AI layer that cites its sources, a price-comparison product built around exact-variant matching, and a set of quantitative research systems whose framework mostly exists to reject strategies that only looked good in sample.",
+    "Before any of that I spent two years co-developing published Fortnite maps that reached over 1.2 million players, which is where I learned that shipping to real users teaches you things no amount of local testing does.",
     "The through-line is that I would rather ship something with hard invariants and a test suite behind it than something that demos well and quietly lies.",
   ],
-  location: "United States",
-  email: "barkeaaron@gmail.com",
-  // TODO(content): drop a resume PDF at public/resume.pdf and set this to
-  // "/resume.pdf". Left null so the settings panel says "available on request"
-  // rather than offering a link that 404s.
-  resumeHref: null,
+  location: "Minneapolis, MN",
+  email: "barke345@umn.edu",
+  resumeHref: "/resume.pdf",
   socials: [
     {
       id: "github",
@@ -28,22 +26,21 @@ export const profile: Profile = {
     {
       id: "linkedin",
       name: "LinkedIn",
-      // TODO(content): confirm the real LinkedIn vanity URL.
-      handle: "@aaronbarke",
+      handle: "in/aaronbarke",
       href: "https://www.linkedin.com/in/aaronbarke",
       status: "online",
     },
     {
       id: "email",
       name: "Email",
-      handle: "barkeaaron@gmail.com",
-      href: "mailto:barkeaaron@gmail.com",
+      handle: "barke345@umn.edu",
+      href: "mailto:barke345@umn.edu",
       status: "online",
     },
   ],
 };
 
-/** Drives the notifications panel — the "what I'm working on now" feed. */
+/** Drives the notifications panel, the "what I'm working on now" feed. */
 export const notifications: {
   id: string;
   kind: "trophy" | "activity" | "update";
@@ -53,23 +50,30 @@ export const notifications: {
 }[] = [
   {
     id: "n1",
-    kind: "trophy",
-    title: "Trophy unlocked — Shipped ScentScout Phase 7",
-    body: "Second retailer adapter live, with a measured presentation convention behind the adapter boundary.",
-    when: "Recently",
+    kind: "activity",
+    title: "Currently: AI Automation Engineer at Walnut Insurance",
+    body: "Sole engineer on an end-to-end outbound pipeline: Apollo, HubSpot, OpenAI and Microsoft Graph, with an LLM qualification layer, running in a SOC 2-restricted production environment.",
+    when: "Now",
   },
   {
     id: "n2",
-    kind: "activity",
-    title: "PatternEdge paper book running",
-    body: "17 trades, 11 wins, +14.65R. Circuit breaker built and armed before any real capital.",
-    when: "Ongoing",
+    kind: "trophy",
+    title: "Trophy unlocked: 1.2M+ players reached",
+    body: "Two years co-developing published Fortnite maps in UEFN with a two-person team, writing game mechanics in Verse.",
+    when: "2023 to 2025",
   },
   {
     id: "n3",
+    kind: "activity",
+    title: "PatternEdge paper book running",
+    body: "17 trades, 11 wins, +14.65R. Circuit breaker built and armed before any real capital goes near it.",
+    when: "Ongoing",
+  },
+  {
+    id: "n4",
     kind: "update",
-    title: "Currently building",
+    title: "Building next",
     body: "An AI thesis layer for MarketEdge Terminal, and adaptation layers that let the quant platform retire its own strategies.",
-    when: "Now",
+    when: "Next",
   },
 ];

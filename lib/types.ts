@@ -36,7 +36,7 @@ export type TrophyTier = "platinum" | "gold" | "silver" | "bronze";
 
 export interface Trophy {
   name: string;
-  /** What the skill was actually used for — keeps the list evidence-based. */
+  /** What the skill was actually used for, which keeps the list evidence-based. */
   detail: string;
   tier: TrophyTier;
 }

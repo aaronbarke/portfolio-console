@@ -5,7 +5,7 @@ import { ExternalIcon, MessageIcon } from "../Icons";
 import { profile } from "@/lib/profile";
 
 /**
- * Contact is a mailto composer rather than a form — there is no backend behind
+ * Contact is a mailto composer rather than a form. There is no backend behind
  * this site, and a form that silently drops messages is worse than no form.
  */
 export function Contact() {
@@ -27,7 +27,7 @@ export function Contact() {
     <div className="space-y-6">
       <p className="max-w-prose text-sm leading-relaxed text-ink-soft">
         Open to full-stack and backend roles, and happy to talk through anything on this page in
-        more detail — including the parts that did not work.
+        more detail, including the parts that did not work.
       </p>
 
       <div className="flex flex-wrap items-center gap-3">

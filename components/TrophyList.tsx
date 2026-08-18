@@ -22,7 +22,7 @@ export function TrophyList() {
   return (
     <div className="space-y-8">
       <p className="max-w-prose text-sm leading-relaxed text-ink-soft">
-        Tiers describe depth rather than preference — {trophies.length} entries, each tied to
+        Tiers describe depth rather than preference. {trophies.length} entries, each tied to
         something on this site rather than listed for keyword coverage.
       </p>
 

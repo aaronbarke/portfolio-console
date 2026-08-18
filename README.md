@@ -5,15 +5,15 @@ project tiles, a status bar whose icons are real destinations, and a detail pane
 that expands downward in place instead of navigating away.
 
 The interface is an original take on the visual language of mid-2010s console home
-screens — the layout, the focus glow, the wave background, the way selection opens
-downward. No manufacturer's artwork, iconography or naming is used; the glyphs in
+screens: the layout, the focus glow, the wave background, the way selection opens
+downward. No manufacturer's artwork, iconography or naming is used. The glyphs in
 `components/Icons.tsx` and the cover art in `components/TileArt.tsx` are drawn in
 code in this repository.
 
 ## Stack
 
-Next.js 14 (App Router) · TypeScript · Tailwind CSS · Framer Motion. No data
-fetching and no backend — everything renders from typed content files in `lib/`.
+Next.js 14 (App Router), TypeScript, Tailwind CSS and Framer Motion. No data
+fetching and no backend. Everything renders from typed content files in `lib/`.
 
 ```bash
 npm install
@@ -57,7 +57,7 @@ lib/
 | --- | --- |
 | `←` `→` | Move between tiles (or within an open folder) |
 | `Enter` / `↓` | Open the highlighted tile |
-| `Esc` / `↑` | Back out one level: panel → folder item → folder → detail |
+| `Esc` / `↑` | Back out one level: panel, then folder item, then folder, then detail |
 | `Tab` | Move through links and buttons normally |
 
 Mouse hover produces the same focused state as keyboard focus, so both routes
@@ -65,21 +65,24 @@ behave identically. Tiles use a roving tab index, the overlay moves focus in and
 returns it to the trigger on close, and every icon has a real label. All motion is
 disabled under `prefers-reduced-motion`.
 
-## Content still to fill in
+## Content
 
-Everything on the site is real except the items below.
+All content lives in `lib/` as typed data, checked against `lib/types.ts`:
 
-1. **`lib/experience.ts`** — the GenesisX and Walnut Insurance entries are
-   placeholders (`ROLE TITLE — fill in`, `20XX — 20XX`). They render as written,
-   so they need real titles, dates and responsibilities before launch.
-2. **`public/resume.pdf`** — not present. Add it, then set `resumeHref` in
-   `lib/profile.ts` to `"/resume.pdf"`; until then the settings panel says the
-   resume is available on request.
-3. **`lib/profile.ts`** — confirm the LinkedIn URL, and swap the generated
-   monogram avatar in `components/Avatar.tsx` for a real photo if wanted.
-4. **`lib/profile.ts`** — `statusLine` currently reads "Available for hire";
-   change it if that is not the message you want in the status bar.
+- `projects.ts` sets the home row and the Experiments folder. Move a project
+  between `featuredProjects` and `experimentProjects` to change which tiles are
+  on the main row.
+- `trophies.ts` is skills by tier, `experience.ts` is employment, education and
+  writing, `profile.ts` is identity, socials and the notification feed.
+- `public/resume.pdf` backs the download in the settings panel. Replace the file
+  to update it; the link comes from `resumeHref` in `profile.ts`.
+- `statusLine` in `profile.ts` is the message next to the avatar in the status
+  bar. It currently reads "Available for hire".
+
+Cover art and icons are generated in code (`TileArt.tsx`, `Icons.tsx`), so
+adding a project needs no image assets, just a motif, two colours and a
+monogram.
 
 ## Deploying
 
-Static output, no environment variables. `vercel` or a GitHub import both work as-is.
+Static output, no environment variables. `vercel` or a GitHub import both work as is.

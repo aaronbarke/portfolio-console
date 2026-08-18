@@ -4,10 +4,10 @@ import { profile } from "@/lib/profile";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.headline}`,
+  title: `${profile.name}: ${profile.headline}`,
   description: profile.headline,
   openGraph: {
-    title: `${profile.name} — Portfolio`,
+    title: `${profile.name}, Portfolio`,
     description: profile.headline,
     type: "website",
   },

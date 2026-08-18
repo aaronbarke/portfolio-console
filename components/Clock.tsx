@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 /**
- * Renders nothing until mounted — the server has no idea what time it is
- * where the visitor is, and a mismatch would hydrate badly.
+ * Renders nothing until mounted. The server has no idea what time it is where
+ * the visitor is, and a mismatch would hydrate badly.
  */
 export function Clock() {
   const [now, setNow] = useState<Date | null>(null);

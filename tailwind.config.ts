@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Console-blue palette. Semantic names only — no raw hex in components.
+        // Console-blue palette. Semantic names only, no raw hex in components.
         base: {
           deep: "#05121f",
           mid: "#0a2b4a",

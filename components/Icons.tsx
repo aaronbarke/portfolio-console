@@ -2,7 +2,7 @@ import type { SVGProps } from "react";
 
 /**
  * Original geometric glyphs. These deliberately do not copy any console
- * manufacturer's iconography — they borrow the visual language (thin strokes,
+ * manufacturer's iconography. They borrow the visual language (thin strokes,
  * simple primitives, generous negative space) and nothing more.
  */
 type IconProps = SVGProps<SVGSVGElement>;

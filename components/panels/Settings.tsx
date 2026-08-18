@@ -25,10 +25,10 @@ export function Settings() {
         <h3 className="text-[11px] uppercase tracking-[0.16em] text-ink-muted">About this site</h3>
         <div className="mt-3 max-w-prose space-y-3 text-sm leading-relaxed text-ink-soft">
           <p>
-            An original interface inspired by the console home screens I grew up with — the
+            An original interface inspired by the console home screens I grew up with: the
             layout language, the focus glow, the way a tile opens downward instead of navigating
-            away. None of the artwork, iconography or naming is borrowed; the glyphs and cover art
-            are drawn in code in this repository.
+            away. None of the artwork, iconography or naming is borrowed. The glyphs and cover art
+            are all drawn in code in this repository.
           </p>
           <p>
             Built with Next.js 14, TypeScript, Tailwind and Framer Motion. Every tile is a real

@@ -17,12 +17,12 @@ export function ExpandPanel({ project }: { project: Project }) {
     <motion.section
       key={project.id}
       aria-label={`${project.title} details`}
-      initial={{ opacity: 0, height: 0, y: -8 }}
+      initial={{ opacity: 0, height: 0, y: -4 }}
       animate={{ opacity: 1, height: "auto", y: 0 }}
-      exit={{ opacity: 0, height: 0, y: -8 }}
+      exit={{ opacity: 0, height: 0, y: -4 }}
       transition={{
-        height: { type: "spring", stiffness: 260, damping: 32 },
-        opacity: { duration: 0.22, ease: "easeOut" },
+        height: { type: "spring", stiffness: 200, damping: 34 },
+        opacity: { duration: 0.26, ease: "easeOut" },
       }}
       className="overflow-hidden"
     >

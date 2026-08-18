@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { forwardRef } from "react";
 import { TileArt } from "./TileArt";
-import { FolderIcon } from "./Icons";
+import { ChevronIcon, FolderIcon } from "./Icons";
 import type { Tile } from "@/lib/types";
 
 interface TileCardProps {
@@ -14,7 +14,7 @@ interface TileCardProps {
   onActivate: () => void;
 }
 
-/** A folder shows a 2×2 peek of the covers inside it. */
+/** A folder shows a 2x2 peek of the covers inside it. */
 function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
   return (
     <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[2px] bg-white/10 p-[2px]">
@@ -44,7 +44,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       ref={ref}
       type="button"
       aria-expanded={open}
-      aria-label={`${title} — ${description}`}
+      aria-label={`${title}. ${description}`}
       tabIndex={focused ? 0 : -1}
       onFocus={onFocus}
       onMouseEnter={onFocus}
@@ -53,11 +53,11 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
         width: focused ? 176 : 128,
         height: focused ? 176 : 128,
       }}
-      transition={{ type: "spring", stiffness: 380, damping: 34, mass: 0.7 }}
+      transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
       className={[
         "relative shrink-0 self-end overflow-hidden rounded-[6px]",
         "outline-none transition-shadow duration-200 ease-console",
-        // Only one box-shadow utility at a time — stylesheet order, not class
+        // Only one box-shadow utility at a time. Stylesheet order, not class
         // order, decides which wins if both are applied.
         focused ? "z-10 shadow-focus" : "shadow-tile opacity-[0.86] hover:opacity-100",
       ].join(" ")}
@@ -81,7 +81,24 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
         </span>
       )}
 
-      {/* Subtle top sheen that strengthens on focus — the "lit" state. */}
+      {focused && (
+        <motion.span
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut", delay: 0.05 }}
+          className="absolute inset-x-0 bottom-0 flex h-7 items-center justify-center border-t border-white/25 bg-white/30 backdrop-blur-sm"
+        >
+          <ChevronIcon
+            strokeWidth={2.25}
+            className={[
+              "h-4 w-4 text-white transition-transform duration-300 ease-console",
+              open ? "-rotate-90" : "rotate-90",
+            ].join(" ")}
+          />
+        </motion.span>
+      )}
+
+      {/* Subtle top sheen that strengthens on focus, the "lit" state. */}
       <span
         aria-hidden="true"
         className={[
