@@ -10,12 +10,13 @@ interface TileArtProps {
   from: string;
   to: string;
   monogram: string;
+  accent?: string;
   className?: string;
 }
 
-function Motif({ motif }: { motif: ArtMotif }) {
-  const stroke = "rgba(255,255,255,0.30)";
-  const fill = "rgba(255,255,255,0.16)";
+function Motif({ motif, accent }: { motif: ArtMotif; accent?: string }) {
+  const stroke = accent ? `${accent}88` : "rgba(255,255,255,0.30)";
+  const fill = accent ? `${accent}33` : "rgba(255,255,255,0.16)";
 
   switch (motif) {
     case "grid":
@@ -170,32 +171,53 @@ function Motif({ motif }: { motif: ArtMotif }) {
   }
 }
 
-export function TileArt({ motif, from, to, monogram, className }: TileArtProps) {
+export function TileArt({ motif, from, to, monogram, accent, className }: TileArtProps) {
+  // Gradient ids must be unique per colour pair, not per monogram, or two tiles
+  // sharing a monogram would also share a fill.
+  const uid = `${monogram}-${from}-${to}`.replace(/[^a-zA-Z0-9]/g, "");
+
   return (
     <div className={className}>
       <svg viewBox="0 0 200 200" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <linearGradient id={`grad-${monogram}`} x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id={`grad-${uid}`} x1="0" y1="0" x2="0.7" y2="1">
             <stop offset="0%" stopColor={from} />
             <stop offset="100%" stopColor={to} />
           </linearGradient>
-          <radialGradient id={`sheen-${monogram}`} cx="0.2" cy="0.05" r="0.9">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
+          <linearGradient id={`sweep-${uid}`} x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+            <stop offset="52%" stopColor="rgba(255,255,255,0.16)" />
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+          </linearGradient>
+          <radialGradient id={`vig-${uid}`} cx="0.5" cy="0.45" r="0.78">
+            <stop offset="55%" stopColor="rgba(0,0,0,0)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.42)" />
           </radialGradient>
+          <linearGradient id={`scrim-${uid}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(0,0,0,0)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.45)" />
+          </linearGradient>
         </defs>
-        <rect width="200" height="200" fill={`url(#grad-${monogram})`} />
-        <Motif motif={motif} />
-        <rect width="200" height="200" fill={`url(#sheen-${monogram})`} />
+
+        <rect width="200" height="200" fill={`url(#grad-${uid})`} />
+
+        <g transform="translate(100 100) scale(1.18) translate(-100 -100)">
+          <Motif motif={motif} accent={accent} />
+        </g>
+
+        <rect width="200" height="200" fill={`url(#sweep-${uid})`} />
+        <rect width="200" height="200" fill={`url(#vig-${uid})`} />
+        <rect y="120" width="200" height="80" fill={`url(#scrim-${uid})`} />
+
         <text
           x="100"
-          y="118"
+          y="120"
           textAnchor="middle"
-          fontSize="58"
-          fontWeight={700}
-          letterSpacing="2"
-          fill="rgba(255,255,255,0.94)"
-          style={{ fontFamily: "inherit" }}
+          fontSize="62"
+          fontWeight={800}
+          letterSpacing="1"
+          fill="#ffffff"
+          style={{ fontFamily: "inherit", paintOrder: "stroke" }}
         >
           {monogram}
         </text>

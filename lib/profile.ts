@@ -19,9 +19,8 @@ export const profile: Profile = {
     {
       id: "instagram",
       name: "Instagram",
-      // TODO(content): replace with your real handle, this is a guess from your name.
-      handle: "@aaronbarke",
-      href: "https://instagram.com/aaronbarke",
+      handle: "@aaron.barke",
+      href: "https://instagram.com/aaron.barke",
     },
     {
       id: "linkedin",

@@ -20,6 +20,8 @@ export interface Art {
   from: string;
   to: string;
   monogram: string;
+  /** Tints the motif. Falls back to plain white at low alpha. */
+  accent?: string;
 }
 
 export interface ProjectLink {
@@ -55,8 +57,11 @@ export interface Trophy {
 export interface ExperienceEntry {
   org: string;
   role: string;
+  /** Contract, Internship, Part-time and so on. */
+  employment?: string;
   period: string;
   location?: string;
+  /** May be empty; the detail panel simply omits the section. */
   points: string[];
 }
 

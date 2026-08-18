@@ -27,6 +27,7 @@ function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
             from={card.art.from}
             to={card.art.to}
             monogram={card.art.monogram}
+          accent={card.art.accent}
             className="h-full w-full overflow-hidden"
           />
         ) : (
@@ -72,6 +73,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
           from={tile.card.art.from}
           to={tile.card.art.to}
           monogram={tile.card.art.monogram}
+          accent={tile.card.art.accent}
           className="h-full w-full"
         />
       )}

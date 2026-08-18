@@ -105,10 +105,12 @@ function RoleBody({ entry, heading }: { entry: ExperienceEntry; heading: string 
         {entry.period}
         {entry.location ? ` · ${entry.location}` : ""}
       </p>
-      <div className="mt-5">
-        <Eyebrow>{heading}</Eyebrow>
-        <Bullets items={entry.points} />
-      </div>
+      {entry.points.length > 0 && (
+        <div className="mt-5">
+          <Eyebrow>{heading}</Eyebrow>
+          <Bullets items={entry.points} />
+        </div>
+      )}
     </>
   );
 }

@@ -73,6 +73,7 @@ export function FolderGrid({
                     from={card.art.from}
                     to={card.art.to}
                     monogram={card.art.monogram}
+          accent={card.art.accent}
                     className={[
                       "aspect-square w-full overflow-hidden rounded-[4px] transition-shadow duration-200",
                       focused ? "shadow-focus" : "shadow-tile opacity-90 group-hover:opacity-100",

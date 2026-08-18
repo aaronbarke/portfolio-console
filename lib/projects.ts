@@ -24,7 +24,7 @@ export const featuredProjects: Project[] = [
       { label: "Data sources", value: "5" },
     ],
     links: [{ label: "View source", href: `${GH}/fantasy-football-ai`, primary: true }],
-    art: { motif: "peaks", from: "#0f4c81", to: "#0a1f38", monogram: "FF" },
+    art: { motif: "peaks", from: "#0f6f4c", to: "#04231a", monogram: "FF", accent: "#7fe0a8" },
   },
   {
     id: "uefn-maps",
@@ -47,7 +47,7 @@ export const featuredProjects: Project[] = [
     links: [
       { label: "Fortnite Creative", href: "https://create.fortnite.com", primary: true },
     ],
-    art: { motif: "orbit", from: "#1a5fa8", to: "#08203a", monogram: "UE" },
+    art: { motif: "storm", from: "#4c2f9e", to: "#150b36", monogram: "UE", accent: "#b39cff" },
   },
   {
     id: "scentscout",
@@ -69,7 +69,7 @@ export const featuredProjects: Project[] = [
       { label: "Retailer adapters", value: "2 live" },
     ],
     links: [{ label: "View source", href: `${GH}/ScentScout`, primary: true }],
-    art: { motif: "orbit", from: "#1b3b6f", to: "#08182c", monogram: "SS" },
+    art: { motif: "orbit", from: "#8a2f6b", to: "#2c0c22", monogram: "SS", accent: "#f0a6d4" },
   },
   {
     id: "patternedge-trader",
@@ -92,7 +92,7 @@ export const featuredProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "bars", from: "#12507a", to: "#061726", monogram: "PE" },
+    art: { motif: "bars", from: "#1f5fb8", to: "#071c3d", monogram: "PE", accent: "#8ec6ff" },
   },
   {
     id: "marketedge-terminal",
@@ -115,7 +115,7 @@ export const featuredProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "wave", from: "#0d6ea8", to: "#071d2f", monogram: "ME" },
+    art: { motif: "wave", from: "#0e6f96", to: "#03222f", monogram: "ME", accent: "#7fd6f0" },
   },
 ];
 
@@ -142,7 +142,7 @@ export const experimentProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "grid", from: "#144a6d", to: "#05131f", monogram: "QP" },
+    art: { motif: "grid", from: "#2a4a8f", to: "#0a1633", monogram: "QP", accent: "#9db8ff" },
   },
   {
     id: "polymarket-wallet-lab",
@@ -160,7 +160,7 @@ export const experimentProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "scatter", from: "#0e5f8f", to: "#061a2b", monogram: "PW" },
+    art: { motif: "scatter", from: "#a2521a", to: "#2c1206", monogram: "PW", accent: "#ffc48a" },
   },
   {
     id: "solana-wallet-lab",
@@ -177,7 +177,7 @@ export const experimentProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "orbit", from: "#0a5b7a", to: "#04161f", monogram: "SW" },
+    art: { motif: "orbit", from: "#4a8f2f", to: "#152a0e", monogram: "SW", accent: "#bfe89a" },
   },
   {
     id: "prediction-market-analyzer",
@@ -193,7 +193,7 @@ export const experimentProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "grid", from: "#125e86", to: "#05161f", monogram: "PM" },
+    art: { motif: "grid", from: "#7a2f8a", to: "#260c2c", monogram: "PM", accent: "#dda6f0" },
   },
   {
     id: "cooked",
@@ -210,7 +210,7 @@ export const experimentProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "peaks", from: "#16597c", to: "#06171f", monogram: "CK" },
+    art: { motif: "peaks", from: "#b3452a", to: "#2e0f08", monogram: "CK", accent: "#ffb59a" },
   },
   {
     id: "proplab",
@@ -227,7 +227,7 @@ export const experimentProjects: Project[] = [
     ],
     privateSource: true,
     links: [],
-    art: { motif: "bars", from: "#0b4f72", to: "#04131d", monogram: "PL" },
+    art: { motif: "bars", from: "#1b6f6a", to: "#052624", monogram: "PL", accent: "#8ae0d8" },
   },
 ];
 

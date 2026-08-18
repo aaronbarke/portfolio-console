@@ -18,7 +18,7 @@ export const favorites: Favorite[] = [
       { label: "Maps published", value: "Multiple" },
       { label: "Players reached", value: "1.2M+" },
     ],
-    art: { motif: "storm", from: "#17408f", to: "#04123f", monogram: "FN" },
+    art: { motif: "storm", from: "#5b2fc9", to: "#160a3d", monogram: "FN", accent: "#a78bfa" },
   },
   {
     id: "rocket-league",
@@ -28,7 +28,7 @@ export const favorites: Favorite[] = [
       "The cleanest ruleset in any game I play. Almost nothing to memorise and a skill ceiling you can chase for years, which is the same thing I want out of a codebase.",
       "Also the game I put on when a bug has beaten me and I need to stop staring at it.",
     ],
-    art: { motif: "boost", from: "#173a86", to: "#050f36", monogram: "RL" },
+    art: { motif: "boost", from: "#1479d0", to: "#07203f", monogram: "RL", accent: "#ffb347" },
   },
   {
     id: "minecraft",
@@ -38,7 +38,7 @@ export const favorites: Favorite[] = [
       "Where building things first clicked. Redstone was the first system I ever debugged, years before I knew that was what I was doing.",
       "Still the reference I reach for when I think about how much a simple set of rules can generate.",
     ],
-    art: { motif: "blocks", from: "#17408f", to: "#050f36", monogram: "MC" },
+    art: { motif: "blocks", from: "#3f8f3a", to: "#14290f", monogram: "MC", accent: "#b7e08a" },
   },
   {
     id: "nba-2k17",
@@ -47,6 +47,6 @@ export const favorites: Favorite[] = [
     note: [
       "Pure nostalgia. The one I have the most hours in that has nothing to do with anything else on this page, which is exactly why it belongs here.",
     ],
-    art: { motif: "court", from: "#173a86", to: "#04123f", monogram: "2K" },
+    art: { motif: "court", from: "#d2691e", to: "#2b1005", monogram: "2K", accent: "#ffd08a" },
   },
 ];

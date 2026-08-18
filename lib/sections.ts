@@ -3,7 +3,7 @@ import { education, experience } from "./experience";
 import { favorites } from "./favorites";
 import { posts } from "./blog";
 import { profile } from "./profile";
-import type { Card, Project, Tile } from "./types";
+import type { Art, Card, Project, Tile } from "./types";
 
 function projectCard(project: Project): Card {
   return {
@@ -18,22 +18,32 @@ function projectCard(project: Project): Card {
 /** Strongest work first, then the rest, then the research labs. */
 const projectCards: Card[] = [...featuredProjects, ...experimentProjects].map(projectCard);
 
+const roleArt: Art[] = [
+  { motif: "bars", from: "#1d4ed8", to: "#0a1b4d", monogram: "WI" },
+  { motif: "orbit", from: "#3b2a8c", to: "#130d38", monogram: "GX" },
+  { motif: "scatter", from: "#b3241f", to: "#3a0b09", monogram: "TG" },
+  { motif: "grid", from: "#155e75", to: "#062330", monogram: "LM" },
+];
+
 const roleCards: Card[] = experience.map((entry, index) => ({
   id: `role-${index}`,
   title: entry.org,
-  tagline: entry.role,
-  art: {
-    motif: index === 0 ? "bars" : "scatter",
-    from: index === 0 ? "#1651a8" : "#1b459c",
-    to: index === 0 ? "#022c8a" : "#122f83",
-    monogram: entry.org
-      .split(" ")
-      .map((word) => word[0])
-      .join("")
-      .slice(0, 2)
-      .toUpperCase(),
-  },
+  tagline: entry.employment ? `${entry.role} · ${entry.employment}` : entry.role,
+  art: roleArt[index] ?? { motif: "grid", from: "#17408f", to: "#04123f", monogram: "WK" },
   body: { type: "role", entry },
+}));
+
+const educationArt: Art[] = [
+  { motif: "cap", from: "#7a0019", to: "#2c0009", monogram: "UM" },
+  { motif: "page", from: "#8c1d2f", to: "#2e0a11", monogram: "LS" },
+];
+
+const educationCards: Card[] = education.map((entry, index) => ({
+  id: `education-${index}`,
+  title: entry.org,
+  tagline: `${entry.role}, ${entry.period}`,
+  art: educationArt[index] ?? { motif: "cap", from: "#17408f", to: "#04123f", monogram: "ED" },
+  body: { type: "education", entry },
 }));
 
 const postCards: Card[] = posts.map((post) => ({
@@ -68,14 +78,6 @@ const skillsCard: Card = {
   body: { type: "skills" },
 };
 
-const educationCard: Card = {
-  id: "education",
-  title: education[0].org,
-  tagline: `${education[0].role}, ${education[0].period}`,
-  art: { motif: "cap", from: "#17408f", to: "#050f36", monogram: "UM" },
-  body: { type: "education", entry: education[0] },
-};
-
 /**
  * The home row. Everything the site has to say is a tile here; nothing is
  * hidden behind the status bar.
@@ -103,7 +105,13 @@ export const homeTiles: Tile[] = [
     tagline: "Where I have worked",
     cards: roleCards,
   },
-  { kind: "card", card: educationCard },
+  {
+    kind: "folder",
+    id: "education",
+    title: "Education",
+    tagline: "Where I studied",
+    cards: educationCards,
+  },
   { kind: "card", card: skillsCard },
   {
     kind: "folder",
