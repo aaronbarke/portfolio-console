@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useCoverSrc } from "./CoverProvider";
 import { profile } from "@/lib/profile";
 
 /**
@@ -9,6 +10,7 @@ import { profile } from "@/lib/profile";
  */
 export function Avatar({ size = 34 }: { size?: number }) {
   const [failed, setFailed] = useState(false);
+  const src = useCoverSrc("me");
 
   // Catches a 404 that resolved before hydration attached the error handler.
   const checkLoaded = useCallback((node: HTMLImageElement | null) => {
@@ -22,18 +24,18 @@ export function Avatar({ size = 34 }: { size?: number }) {
     .slice(0, 2)
     .toUpperCase();
 
-  if (!failed) {
+  if (src && !failed) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         ref={checkLoaded}
-        src="/me.jpg"
+        src={src}
         alt=""
         width={size}
         height={size}
         onError={() => setFailed(true)}
         style={{ width: size, height: size }}
-        className="shrink-0 rounded-full object-cover ring-1 ring-white/25"
+        className="shrink-0 rounded-full object-cover object-top ring-1 ring-white/25"
       />
     );
   }

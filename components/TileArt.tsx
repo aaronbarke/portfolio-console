@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useCoverSrc } from "./CoverProvider";
 import type { ArtMotif } from "@/lib/types";
 
 /**
@@ -188,7 +189,8 @@ export function TileArt({
 }: TileArtProps) {
   // A missing file falls back to the drawn cover rather than a broken image.
   const [imageFailed, setImageFailed] = useState(false);
-  const showImage = Boolean(image) && !imageFailed;
+  const src = useCoverSrc(image);
+  const showImage = Boolean(src) && !imageFailed;
 
   // If the request already failed before React attached the handler, the error
   // event is long gone, so check the element's own state when it mounts.
@@ -250,16 +252,16 @@ export function TileArt({
           )}
         </svg>
 
-        {showImage && image && (
+        {showImage && src && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             ref={checkLoaded}
-            src={image}
+            src={src}
             alt=""
             onError={() => setImageFailed(true)}
             className={[
               "absolute inset-0 h-full w-full",
-              imageFit === "contain" ? "object-contain p-[14%]" : "object-cover",
+              imageFit === "contain" ? "object-contain p-[14%]" : "object-cover object-top",
             ].join(" ")}
           />
         )}

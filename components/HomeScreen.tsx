@@ -6,6 +6,8 @@ import { TopBar } from "./TopBar";
 import { TileRow } from "./TileRow";
 import { ControllerHints } from "./ControllerHints";
 import { ReferenceOverlay } from "./ReferenceOverlay";
+import { CoverProvider } from "./CoverProvider";
+import type { CoverMap } from "@/lib/covers";
 
 function Screen() {
   useConsoleKeyboard();
@@ -41,10 +43,12 @@ function Screen() {
   );
 }
 
-export function HomeScreen() {
+export function HomeScreen({ covers }: { covers: CoverMap }) {
   return (
-    <HomeProvider>
-      <Screen />
-    </HomeProvider>
+    <CoverProvider covers={covers}>
+      <HomeProvider>
+        <Screen />
+      </HomeProvider>
+    </CoverProvider>
   );
 }

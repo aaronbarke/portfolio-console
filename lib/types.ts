@@ -23,8 +23,9 @@ export interface Art {
   /** Tints the motif. Falls back to plain white at low alpha. */
   accent?: string;
   /**
-   * Optional real artwork. If the file is missing the tile falls back to the
-   * drawn cover, so referencing an image that is not there yet is safe.
+   * Key for a file in public/covers, without the extension. Resolved against
+   * what is actually on disk, so "fortnite" finds fortnite.png or .webp alike.
+   * A key with no matching file falls back to the drawn cover.
    */
   image?: string;
   /** "cover" fills the tile (game art); "contain" centres it (logos). */
