@@ -24,12 +24,14 @@ export function TileRow() {
   const sectionRef = useRef<HTMLElement>(null);
   const focusedTile = tiles[focusIndex];
 
-  // Keep the focused tile on screen when the row overflows.
+  // Only scroll when the focused tile would otherwise be off screen. Centring
+  // on every move shifted the whole row for a single step, which fought the
+  // resize animation and was most of what made moving around feel heavy.
   useEffect(() => {
     tileRefs.current[focusIndex]?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
-      inline: "center",
+      inline: "nearest",
     });
   }, [focusIndex]);
 
@@ -83,7 +85,7 @@ export function TileRow() {
       <div
         role="group"
         aria-label="Sections"
-        className="scrollbar-none flex items-start gap-2 overflow-x-auto px-4 pb-1 pt-5 sm:gap-2.5 sm:px-6 sm:pt-6 lg:px-10"
+        className="scrollbar-none flex items-start gap-2 overflow-x-auto scroll-px-4 px-4 pb-14 pt-12 sm:gap-2.5 sm:scroll-px-6 sm:px-6 sm:pt-14 lg:scroll-px-10 lg:px-10"
       >
         {tiles.map((tile, index) => {
           const id = tile.kind === "card" ? tile.card.id : tile.id;
@@ -124,7 +126,7 @@ export function TileRow() {
         })}
       </div>
 
-      <div className="mt-4 min-h-[44px] px-4 sm:px-6 lg:px-10">
+      <div className="-mt-10 min-h-[44px] px-4 sm:px-6 lg:px-10">
         <motion.div
           key={headingTitle}
           initial={{ opacity: 0, y: 4 }}

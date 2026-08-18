@@ -52,6 +52,13 @@ function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
  */
 const ARROW_BAR_RATIO = 0.23;
 
+/**
+ * A tween rather than a spring. Springs overshoot and settle at their own pace,
+ * and with nine tiles resizing at once that reads as chunky; a fixed curve
+ * lands every tile together.
+ */
+const TILE_TRANSITION = { duration: 0.26, ease: [0.32, 0.72, 0.24, 1] } as const;
+
 export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function TileCard(
   { tile, focused, open, size, onFocus, onHover, onActivate },
   ref,
@@ -78,7 +85,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       // art (~600px) is what the spring animates down from, which flashes.
       initial={false}
       animate={{ width: art, height: focused && !isSystem ? art + bar : art }}
-      transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
+      transition={TILE_TRANSITION}
       className={[
         "relative flex shrink-0 flex-col self-start overflow-hidden rounded-[4px] ring-1 ring-white/12",
         "outline-none transition-shadow duration-200 ease-console",
@@ -87,11 +94,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
         focused ? "z-10 shadow-focus" : "shadow-tile opacity-[0.88] hover:opacity-100",
       ].join(" ")}
     >
-      <motion.span
-        animate={{ height: art }}
-        transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
-        className="relative block w-full shrink-0 overflow-hidden"
-      >
+      <span className="relative block aspect-square w-full shrink-0 overflow-hidden">
         {tile.kind === "system" ? (
           <SystemArt mark={tile.mark} />
         ) : tile.kind === "folder" ? (
@@ -127,7 +130,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
             "bg-[linear-gradient(180deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0)_45%)]",
           ].join(" ")}
         />
-      </motion.span>
+      </span>
 
       {/* The strip that says "this opens downward". */}
       {focused && !isSystem && (

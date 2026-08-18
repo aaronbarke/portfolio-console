@@ -25,8 +25,8 @@ function Screen() {
       <motion.main
         id="main"
         className="flex flex-1 flex-col pb-6"
-        animate={{ paddingTop: isIdle ? "9vh" : "1rem" }}
-        transition={{ type: "spring", stiffness: 190, damping: 30 }}
+        animate={{ paddingTop: isIdle ? "5.5vh" : "0rem" }}
+        transition={{ duration: 0.34, ease: [0.32, 0.72, 0.24, 1] }}
       >
         <motion.div
           initial={{ opacity: 0, y: 10 }}

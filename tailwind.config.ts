@@ -37,7 +37,7 @@ const config: Config = {
         ],
       },
       boxShadow: {
-        focus: "0 0 0 3px rgba(255,255,255,0.92), 0 0 44px 6px rgba(79,195,255,0.55)",
+        focus: "0 0 0 3px rgba(255,255,255,0.95), 0 0 0 5px rgba(120,190,255,0.35), 0 0 34px 2px rgba(120,200,255,0.5), 0 0 70px 12px rgba(90,170,255,0.28)",
         tile: "0 18px 40px -18px rgba(0,0,0,0.75)",
         panel: "0 30px 80px -30px rgba(0,0,0,0.85)",
       },
