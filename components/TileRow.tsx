@@ -33,15 +33,13 @@ export function TileRow() {
   }, [focusIndex]);
 
   const openKey = expandedId ?? openFolderId;
+  const anythingOpen = Boolean(openKey);
 
-  useEffect(() => {
-    if (!openKey) return;
-    // Let the height spring get underway before measuring where to scroll.
-    const id = window.setTimeout(() => {
-      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 220);
-    return () => window.clearTimeout(id);
-  }, [openKey]);
+  // At rest the row is the whole page, so the tiles are large. Once something
+  // is open they step down to leave the panel below room without scrolling.
+  const tileSize = anythingOpen
+    ? { focused: 164, resting: 120 }
+    : { focused: 216, resting: 152 };
 
   const expandedCard = expandedId ? (allCards.find((c) => c.id === expandedId) ?? null) : null;
 
@@ -59,7 +57,7 @@ export function TileRow() {
       <div
         role="group"
         aria-label="Sections"
-        className="scrollbar-none flex min-h-[168px] items-end gap-3 overflow-x-auto px-1 pb-1 pt-5 sm:min-h-[200px] sm:gap-4 sm:pt-6"
+        className="scrollbar-none flex items-end gap-3 overflow-x-auto px-1 pb-1 pt-5 sm:gap-4 sm:pt-6"
       >
         {tiles.map((tile, index) => {
           const id = tile.kind === "folder" ? tile.id : tile.card.id;
@@ -72,6 +70,7 @@ export function TileRow() {
                 }}
                 tile={tile}
                 focused={focused}
+                size={tileSize}
                 open={tile.kind === "folder" ? openFolderId === tile.id : expandedId === id}
                 onFocus={() => dispatch({ type: "focus", index })}
                 onActivate={() => dispatch({ type: "activateTile", index })}
@@ -84,7 +83,7 @@ export function TileRow() {
                   initial={{ opacity: 0, x: -6 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                  className="hidden shrink-0 self-center pb-2 pl-1 pr-3 text-xl font-medium tracking-tight text-shadow-soft md:block"
+                  className="hidden shrink-0 self-center pb-2 pl-2 pr-4 text-2xl font-medium tracking-tight text-shadow-soft md:block"
                 >
                   {headingTitle}
                 </motion.span>

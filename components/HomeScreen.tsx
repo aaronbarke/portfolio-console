@@ -1,13 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HomeProvider, useConsoleKeyboard } from "./HomeProvider";
+import { HomeProvider, useConsoleKeyboard, useHome } from "./HomeProvider";
 import { TopBar } from "./TopBar";
 import { TileRow } from "./TileRow";
 import { ControllerHints } from "./ControllerHints";
+import { ReferenceOverlay } from "./ReferenceOverlay";
 
 function Screen() {
   useConsoleKeyboard();
+  const { isIdle } = useHome();
 
   return (
     <motion.div
@@ -18,7 +20,12 @@ function Screen() {
     >
       <TopBar />
 
-      <main id="main" className="flex flex-1 flex-col justify-center py-6">
+      <motion.main
+        id="main"
+        className="flex flex-1 flex-col pb-6"
+        animate={{ paddingTop: isIdle ? "14vh" : "1.5rem" }}
+        transition={{ type: "spring", stiffness: 190, damping: 30 }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -26,9 +33,10 @@ function Screen() {
         >
           <TileRow />
         </motion.div>
-      </main>
+      </motion.main>
 
       <ControllerHints />
+      {process.env.NODE_ENV === "development" && <ReferenceOverlay />}
     </motion.div>
   );
 }

@@ -146,6 +146,8 @@ export function ExpandPanel({ card }: { card: Card }) {
               to={card.art.to}
               monogram={card.art.monogram}
           accent={card.art.accent}
+          image={card.art.image}
+          imageFit={card.art.imageFit}
               className="aspect-square w-full max-w-[220px] overflow-hidden rounded-md shadow-tile"
             />
             <div className="flex flex-col gap-2">

@@ -106,6 +106,33 @@ Cover art and icons are generated in code (`TileArt.tsx`, `Icons.tsx`), so
 adding a project needs no image assets, just a motif, two colours and a
 monogram.
 
+## Images
+
+Nothing here requires an image. Every tile draws its own cover, and any file you
+drop in replaces it. A missing file falls back to the drawn art rather than
+breaking, so you can add them one at a time.
+
+- `public/me.jpg` backs the About tile and the status-bar avatar.
+- `public/covers/` holds tile artwork. See the README in that folder for the
+  filename each tile looks for.
+- Logos use `imageFit: "contain"` and sit centred on the tile's gradient. Game
+  and project art uses `"cover"` and fills the tile edge to edge.
+
+## Reference overlay
+
+`npm run dev` only, stripped from production builds. Put a screenshot in
+`public/reference/` and press `r` to lay it over the running site.
+
+| Key | Action |
+| --- | --- |
+| `r` | Show or hide |
+| `[` `]` | Opacity |
+| `,` `.` | Previous or next reference image |
+| `b` | Toggle difference blend |
+
+Difference blend is the one worth knowing: matching pixels go black, so whatever
+is still glowing is out of position.
+
 ## Deploying
 
 Static output, no environment variables. `vercel` or a GitHub import both work as is.

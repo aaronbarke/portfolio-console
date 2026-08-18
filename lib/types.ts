@@ -22,6 +22,13 @@ export interface Art {
   monogram: string;
   /** Tints the motif. Falls back to plain white at low alpha. */
   accent?: string;
+  /**
+   * Optional real artwork. If the file is missing the tile falls back to the
+   * drawn cover, so referencing an image that is not there yet is safe.
+   */
+  image?: string;
+  /** "cover" fills the tile (game art); "contain" centres it (logos). */
+  imageFit?: "cover" | "contain";
 }
 
 export interface ProjectLink {

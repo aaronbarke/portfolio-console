@@ -10,6 +10,8 @@ interface TileCardProps {
   tile: Tile;
   focused: boolean;
   open: boolean;
+  /** Tiles shrink once something is open, to leave the panel room. */
+  size: { focused: number; resting: number };
   onFocus: () => void;
   onActivate: () => void;
 }
@@ -28,6 +30,8 @@ function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
             to={card.art.to}
             monogram={card.art.monogram}
           accent={card.art.accent}
+          image={card.art.image}
+          imageFit={card.art.imageFit}
             className="h-full w-full overflow-hidden"
           />
         ) : (
@@ -39,7 +43,7 @@ function FolderArt({ tile }: { tile: Extract<Tile, { kind: "folder" }> }) {
 }
 
 export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function TileCard(
-  { tile, focused, open, onFocus, onActivate },
+  { tile, focused, open, size, onFocus, onActivate },
   ref,
 ) {
   const title = tile.kind === "folder" ? tile.title : tile.card.title;
@@ -55,7 +59,7 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
       onFocus={onFocus}
       onMouseEnter={onFocus}
       onClick={onActivate}
-      animate={{ width: focused ? 176 : 128, height: focused ? 176 : 128 }}
+      animate={{ width: focused ? size.focused : size.resting, height: focused ? size.focused : size.resting }}
       transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.9 }}
       className={[
         "relative shrink-0 self-end overflow-hidden rounded-[4px] ring-1 ring-white/12",
@@ -74,6 +78,8 @@ export const TileCard = forwardRef<HTMLButtonElement, TileCardProps>(function Ti
           to={tile.card.art.to}
           monogram={tile.card.art.monogram}
           accent={tile.card.art.accent}
+          image={tile.card.art.image}
+          imageFit={tile.card.art.imageFit}
           className="h-full w-full"
         />
       )}

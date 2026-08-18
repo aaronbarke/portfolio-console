@@ -66,7 +66,7 @@ export function FolderGrid({
                   onClick={() => onSelectItem(index)}
                   animate={{ scale: focused ? 1.04 : 1 }}
                   transition={{ type: "spring", stiffness: 240, damping: 28 }}
-                  className="group flex w-[112px] shrink-0 flex-col gap-2 rounded-md outline-none sm:w-[124px]"
+                  className="group flex w-[120px] shrink-0 flex-col gap-2 rounded-md outline-none sm:w-[136px]"
                 >
                   <TileArt
                     motif={card.art.motif}
@@ -74,6 +74,8 @@ export function FolderGrid({
                     to={card.art.to}
                     monogram={card.art.monogram}
           accent={card.art.accent}
+          image={card.art.image}
+          imageFit={card.art.imageFit}
                     className={[
                       "aspect-square w-full overflow-hidden rounded-[4px] transition-shadow duration-200",
                       focused ? "shadow-focus" : "shadow-tile opacity-90 group-hover:opacity-100",

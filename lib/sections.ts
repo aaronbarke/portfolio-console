@@ -19,10 +19,10 @@ function projectCard(project: Project): Card {
 const projectCards: Card[] = [...featuredProjects, ...experimentProjects].map(projectCard);
 
 const roleArt: Art[] = [
-  { motif: "bars", from: "#1d4ed8", to: "#0a1b4d", monogram: "WI" },
-  { motif: "orbit", from: "#3b2a8c", to: "#130d38", monogram: "GX" },
-  { motif: "scatter", from: "#b3241f", to: "#3a0b09", monogram: "TG" },
-  { motif: "grid", from: "#155e75", to: "#062330", monogram: "LM" },
+  { motif: "bars", from: "#1d4ed8", to: "#0a1b4d", monogram: "WI", image: "/covers/walnut-insurance.png", imageFit: "contain" },
+  { motif: "orbit", from: "#3b2a8c", to: "#130d38", monogram: "GX", image: "/covers/genesisx.png", imageFit: "contain" },
+  { motif: "scatter", from: "#b3241f", to: "#3a0b09", monogram: "TG", image: "/covers/target.png", imageFit: "contain" },
+  { motif: "grid", from: "#155e75", to: "#062330", monogram: "LM", image: "/covers/lake-marion.png", imageFit: "contain" },
 ];
 
 const roleCards: Card[] = experience.map((entry, index) => ({
@@ -34,8 +34,8 @@ const roleCards: Card[] = experience.map((entry, index) => ({
 }));
 
 const educationArt: Art[] = [
-  { motif: "cap", from: "#7a0019", to: "#2c0009", monogram: "UM" },
-  { motif: "page", from: "#8c1d2f", to: "#2e0a11", monogram: "LS" },
+  { motif: "cap", from: "#7a0019", to: "#2c0009", monogram: "UM", image: "/covers/umn.png", imageFit: "contain" },
+  { motif: "page", from: "#8c1d2f", to: "#2e0a11", monogram: "LS", image: "/covers/lakeville-south.png", imageFit: "contain" },
 ];
 
 const educationCards: Card[] = education.map((entry, index) => ({
