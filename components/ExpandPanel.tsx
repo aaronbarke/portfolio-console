@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { TileArt } from "./TileArt";
 import { CardBodyView } from "./CardBodies";
 import { DownloadIcon, ExternalIcon, LockIcon, MessageIcon } from "./Icons";
+import { useResumeHref } from "./CoverProvider";
 import { profile } from "@/lib/profile";
 import type { Card } from "@/lib/types";
 
@@ -16,7 +17,7 @@ function PrimaryLink({
   href: string;
   label: string;
   icon: React.ReactNode;
-  download?: boolean;
+  download?: string | boolean;
 }) {
   return (
     <a
@@ -56,6 +57,8 @@ function SecondaryLink({
 
 /** The action column varies by what the card actually offers. */
 function CardActions({ card }: { card: Card }) {
+  const resumeHref = useResumeHref();
+
   if (card.body.type === "project") {
     const project = card.body.project;
     const primary = project.links.find((link) => link.primary) ?? project.links[0];
@@ -89,12 +92,12 @@ function CardActions({ card }: { card: Card }) {
   if (card.body.type === "about") {
     return (
       <>
-        {profile.resumeHref && (
+        {resumeHref && (
           <PrimaryLink
-            href={profile.resumeHref}
+            href={resumeHref}
             label="Download resume"
             icon={<DownloadIcon className="h-4 w-4" />}
-            download
+            download="Aaron-Barke-Resume.pdf"
           />
         )}
         <SecondaryLink

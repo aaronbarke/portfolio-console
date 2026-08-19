@@ -7,7 +7,7 @@ import { TileRow } from "./TileRow";
 import { ControllerHints } from "./ControllerHints";
 import { ReferenceOverlay } from "./ReferenceOverlay";
 import { CoverProvider } from "./CoverProvider";
-import type { CoverMap } from "@/lib/covers";
+import type { CoverMap } from "@/lib/assets";
 
 function Screen() {
   useConsoleKeyboard();
@@ -43,9 +43,15 @@ function Screen() {
   );
 }
 
-export function HomeScreen({ covers }: { covers: CoverMap }) {
+export function HomeScreen({
+  covers,
+  resumeHref,
+}: {
+  covers: CoverMap;
+  resumeHref: string | null;
+}) {
   return (
-    <CoverProvider covers={covers}>
+    <CoverProvider covers={covers} resumeHref={resumeHref}>
       <HomeProvider>
         <Screen />
       </HomeProvider>

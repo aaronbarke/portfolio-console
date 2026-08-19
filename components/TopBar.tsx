@@ -3,6 +3,7 @@
 import { Avatar } from "./Avatar";
 import { Clock } from "./Clock";
 import { DownloadIcon, GithubIcon, InstagramIcon, LinkedInIcon, MessageIcon } from "./Icons";
+import { useResumeHref } from "./CoverProvider";
 import { profile } from "@/lib/profile";
 
 const socialIcons: Record<string, (props: { className?: string }) => JSX.Element> = {
@@ -23,7 +24,7 @@ function BarLink({
   label: string;
   hint: string;
   children: React.ReactNode;
-  download?: boolean;
+  download?: string | boolean;
 }) {
   return (
     <a
@@ -48,6 +49,7 @@ function BarLink({
  * spaced rather than crowded into a toolbar.
  */
 export function TopBar() {
+  const resumeHref = useResumeHref();
   const social = Object.fromEntries(profile.socials.map((s) => [s.id, s]));
   const left = ["instagram", "linkedin"].map((id) => social[id]).filter(Boolean);
   const right = ["github", "email"].map((id) => social[id]).filter(Boolean);
@@ -88,8 +90,8 @@ export function TopBar() {
             </BarLink>
           );
         })}
-        {profile.resumeHref && (
-          <BarLink href={profile.resumeHref} label="Download resume" hint="Resume" download>
+        {resumeHref && (
+          <BarLink href={resumeHref} label="Download resume" hint="Resume" download="Aaron-Barke-Resume.pdf">
             <DownloadIcon className="h-[21px] w-[21px]" />
           </BarLink>
         )}

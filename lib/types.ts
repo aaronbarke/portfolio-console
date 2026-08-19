@@ -117,7 +117,6 @@ export interface Profile {
   bio: string[];
   location: string;
   email: string;
-  resumeHref: string | null;
   socials: SocialLink[];
 }
 

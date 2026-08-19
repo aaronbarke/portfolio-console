@@ -42,3 +42,23 @@ export function resolveCovers(): CoverMap {
   scan(root, "", covers);
   return covers;
 }
+
+/**
+ * Finds the resume PDF by looking for one, rather than by a hardcoded path, so
+ * renaming the file cannot silently break the download. A name containing
+ * "resume" wins if there is more than one PDF.
+ */
+export function resolveResume(): string | null {
+  let entries: string[];
+  try {
+    entries = readdirSync(path.join(process.cwd(), "public"));
+  } catch {
+    return null;
+  }
+
+  const pdfs = entries.filter((name) => path.extname(name).toLowerCase() === ".pdf");
+  if (pdfs.length === 0) return null;
+
+  const preferred = pdfs.find((name) => name.toLowerCase().includes("resume")) ?? pdfs[0];
+  return `/${preferred}`;
+}

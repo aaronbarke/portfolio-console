@@ -14,7 +14,6 @@ export const profile: Profile = {
   ],
   location: "Minneapolis, MN",
   email: "barke345@umn.edu",
-  resumeHref: "/resume.pdf",
   socials: [
     {
       id: "instagram",
