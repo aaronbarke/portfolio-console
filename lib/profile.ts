@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: "Aaron Barke",
   onlineId: "aaronbarke",
   // Shown next to the avatar in the top bar, like a console status message.
-  statusLine: "Available for hire",
+  statusLine: "Open to internships",
   headline: "Computer science student building AI tooling and data-heavy products end to end.",
   bio: [
     "I'm a computer science student at the University of Minnesota, currently working as the sole engineer on an automated outbound sales pipeline at Walnut Insurance. Apollo, HubSpot, OpenAI and Microsoft Graph wired together, with an LLM qualification layer on top, deployed into a SOC 2-restricted environment.",
